@@ -1,0 +1,45 @@
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  export_game:
+    runs-on: ubuntu-latest
+    name: Export game to GitHub
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Download Godot from GitHub Releases
+        run: |
+          wget https://github.com/godotengine/godot/releases/download/4.3-stable/Godot_v4.3-stable_linux.x86_64.zip -O godot.zip
+          unzip godot.zip -d ~/godot
+          chmod +x ~/godot/Godot_v4.3-stable_linux.x86_64
+
+      - name: Download Godot export templates from GitHub
+        run: |
+          wget https://github.com/godotengine/godot/releases/download/4.3-stable/Godot_v4.3-stable_export_templates.tpz -O 4.3.stable.tpz
+          mkdir -p ~/.local/share/godot/export_templates
+          unzip -o 4.3.stable.tpz -d ~/.local/share/godot/export_templates
+          mv ~/.local/share/godot/export_templates/templates ~/.local/share/godot/export_templates/4.3.stable || { echo "Error: Could not rename templates folder."; exit 1; }
+
+      - name: Prepare output directory
+        run: |
+          mkdir -p ./exports/html
+          chmod -R 777 ./exports/html
+
+      - name: Export game
+        run: |
+          ~/godot/Godot_v4.3-stable_linux.x86_64 --headless --path game --export-release "Web" $(pwd)/exports/html/index.html
+
+      - name: Upload to itch.io
+        uses: manleydev/butler-publish-itchio-action@master
+        env:
+          BUTLER_CREDENTIALS: ${{ secrets.BUTLER_API_KEY }}
+          CHANNEL: html
+          ITCH_GAME: ld57
+          ITCH_USER: thomas-bringer
+          PACKAGE: ./exports/html
