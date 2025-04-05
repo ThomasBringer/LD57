@@ -31,7 +31,7 @@ func set_bspline() -> void:
 		else:
 			var prev_point: Vector2 = points[i-1]
 			var next_point: Vector2 = points[i+1]
-			var handle_out: Vector2 = (next_point - prev_point) / 3
+			var handle_out: Vector2 = (next_point - prev_point) * .2
 			curve.add_point(point, -handle_out, handle_out)
 	
 	if line:
