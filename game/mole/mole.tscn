@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://cup187fvw1yur"]
+[gd_scene load_steps=13 format=3 uid="uid://cup187fvw1yur"]
 
 [ext_resource type="Texture2D" uid="uid://dodsg4ccahpi7" path="res://mole/art/circle15.svg" id="1_20w2l"]
 [ext_resource type="Script" path="res://procedural_anim/link/link.gd" id="1_37vlg"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://mole/z_ordering.gd" id="2_cxv7g"]
 [ext_resource type="Script" path="res://mole/code/eye_pivots.gd" id="3_midl1"]
 [ext_resource type="Script" path="res://procedural_anim/follower/follower_o1.gd" id="4_8l4tu"]
+[ext_resource type="Texture2D" uid="uid://dd38y2nfpm8o6" path="res://mole/art/circle100.svg" id="7_0itus"]
 [ext_resource type="Texture2D" uid="uid://dulitlvlbsew6" path="res://mole/art/circle40.svg" id="7_3dx3e"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_dbubr"]
@@ -213,11 +214,13 @@ rotation = 0.00304679
 texture = ExtResource("1_20w2l")
 
 [node name="CircleHeadMask" type="Sprite2D" parent="Visuals"]
+clip_children = 1
 z_index = 2
-position = Vector2(0, -60)
+position = Vector2(0, -50)
+texture = ExtResource("7_0itus")
 
 [node name="Eye1Visual" type="Sprite2D" parent="Visuals/CircleHeadMask"]
-position = Vector2(19.2836, 3.26023)
+position = Vector2(19.2836, -6.73977)
 texture = ExtResource("7_3dx3e")
 
 [node name="Eye1Pivot" type="Node2D" parent="Visuals/CircleHeadMask/Eye1Visual"]
@@ -229,7 +232,7 @@ position = Vector2(10, 0)
 texture = ExtResource("1_20w2l")
 
 [node name="Eye2Visual" type="Sprite2D" parent="Visuals/CircleHeadMask"]
-position = Vector2(30, -10)
+position = Vector2(30, -20)
 texture = ExtResource("7_3dx3e")
 
 [node name="Eye2Pivot" type="Node2D" parent="Visuals/CircleHeadMask/Eye2Visual"]
