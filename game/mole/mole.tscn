@@ -1,34 +1,28 @@
-[gd_scene load_steps=6 format=3 uid="uid://cup187fvw1yur"]
+[gd_scene load_steps=7 format=3 uid="uid://cup187fvw1yur"]
 
-[ext_resource type="Texture2D" uid="uid://dodsg4ccahpi7" path="res://mole/art/circle.svg" id="1_20w2l"]
+[ext_resource type="Script" path="res://procedural_anim/link/link.gd" id="1_37vlg"]
 [ext_resource type="Script" path="res://mole/code/mole_movement.gd" id="1_hyo3r"]
 [ext_resource type="Script" path="res://procedural_anim/rotate/rotator_o1.gd" id="1_rvp6h"]
+[ext_resource type="Script" path="res://procedural_anim/follower/follower_o1.gd" id="4_8l4tu"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_dbubr"]
 radius = 62.5
 
 [sub_resource type="Curve" id="Curve_k3ojm"]
-_data = [Vector2(0, 0.8), 0.0, 0.2, 0, 1, Vector2(1, 1), 0.2, 0.0, 1, 0]
+_data = [Vector2(0, 1), 0.0, -0.2, 0, 1, Vector2(1, 0.8), -0.2, 0.0, 1, 0]
 point_count = 2
 
 [node name="Mole" type="CharacterBody2D"]
 
+[node name="MoleMovement" type="Node2D" parent="."]
+script = ExtResource("1_hyo3r")
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_dbubr")
 
-[node name="Visuals" type="Node2D" parent="."]
-
-[node name="Body" type="Line2D" parent="Visuals"]
-rotation = -0.00304679
-points = PackedVector2Array(0, -90, 0, 0)
-width = 125.0
-width_curve = SubResource("Curve_k3ojm")
-begin_cap_mode = 2
-end_cap_mode = 2
-round_precision = 12
-antialiased = true
-
 [node name="Points" type="Node2D" parent="."]
+
+[node name="Root" type="Node2D" parent="Points"]
 
 [node name="Scaler" type="Node2D" parent="Points"]
 scale = Vector2(1, 0.577)
@@ -39,7 +33,14 @@ scale = Vector2(1, 0.577)
 position = Vector2(62.5, 0)
 
 [node name="RemoteBaseTarget" type="RemoteTransform2D" parent="Points/Scaler/PivotTarget/BaseTarget"]
-remote_path = NodePath("../../../../BaseTarget")
+remote_path = NodePath("../../../../Remote/BaseTarget")
+update_rotation = false
+update_scale = false
+
+[node name="OffsetHead" type="Node2D" parent="Points/Scaler/PivotTarget"]
+
+[node name="RemoteOffsetHead" type="RemoteTransform2D" parent="Points/Scaler/PivotTarget/OffsetHead"]
+remote_path = NodePath("../../../../Remote/OffsetHead")
 update_rotation = false
 update_scale = false
 
@@ -51,27 +52,35 @@ target = NodePath("../PivotTarget")
 [node name="Base" type="Node2D" parent="Points/Scaler/Pivot"]
 position = Vector2(62.5, 0)
 
-[node name="RemoteBase" type="RemoteTransform2D" parent="Points/Scaler/Pivot/Base"]
-remote_path = NodePath("../../../../Base")
-update_rotation = false
-update_scale = false
+[node name="Remote" type="Node2D" parent="Points"]
 
-[node name="Base" type="Node2D" parent="Points"]
+[node name="BaseTarget" type="Node2D" parent="Points/Remote"]
 position = Vector2(62.5, 0)
 
-[node name="Circle" type="Sprite2D" parent="Points/Base"]
-self_modulate = Color(1, 0.568627, 0.513726, 1)
-texture = ExtResource("1_20w2l")
+[node name="OffsetHead" type="Node2D" parent="Points/Remote"]
 
-[node name="BaseTarget" type="Node2D" parent="Points"]
-position = Vector2(62.5, 0)
-
-[node name="HeadTarget" type="Node2D" parent="Points/BaseTarget"]
+[node name="HeadTarget" type="Node2D" parent="Points/Remote/OffsetHead"]
 position = Vector2(0, -90)
 
-[node name="Circle2" type="Sprite2D" parent="Points/BaseTarget/HeadTarget"]
-self_modulate = Color(1, 0.568627, 0.513726, 1)
-texture = ExtResource("1_20w2l")
+[node name="Followers" type="Node2D" parent="Points"]
 
-[node name="MoleMovement" type="Node2D" parent="."]
-script = ExtResource("1_hyo3r")
+[node name="Head" type="Node2D" parent="Points/Followers" node_paths=PackedStringArray("target")]
+position = Vector2(0, -90)
+script = ExtResource("4_8l4tu")
+speed = 10.0
+target = NodePath("../../Remote/OffsetHead/HeadTarget")
+local = false
+
+[node name="Visuals" type="Node" parent="."]
+
+[node name="Body" type="Line2D" parent="Visuals" node_paths=PackedStringArray("nodes")]
+rotation = -0.00304679
+points = PackedVector2Array(0, 0, 0, -90)
+width = 125.0
+width_curve = SubResource("Curve_k3ojm")
+begin_cap_mode = 2
+end_cap_mode = 2
+round_precision = 12
+antialiased = true
+script = ExtResource("1_37vlg")
+nodes = [NodePath("../../Points/Root"), NodePath("../../Points/Followers/Head")]
