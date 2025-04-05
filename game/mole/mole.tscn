@@ -28,9 +28,10 @@ point_count = 3
 
 [node name="Mole" type="CharacterBody2D"]
 
-[node name="MoleMovement" type="Node2D" parent="." node_paths=PackedStringArray("pivot_targets")]
+[node name="MoleMovement" type="Node2D" parent="." node_paths=PackedStringArray("pivot_targets", "graphics")]
 script = ExtResource("1_hyo3r")
 pivot_targets = [NodePath("../Points/Scaler/PivotTarget"), NodePath("../Points/Followers/Head/Scaler/HeadPivotTarget"), NodePath("../Visuals/CircleHeadMask/Eye1Visual/Eye1Pivot"), NodePath("../Visuals/CircleHeadMask/Eye2Visual/Eye2Pivot")]
+graphics = [NodePath("../Visuals/Body"), NodePath("../Visuals/Nose"), NodePath("../Visuals/Nose/Nose2Visual"), NodePath("../Visuals/CircleHeadMask/Eye1Visual"), NodePath("../Visuals/CircleHeadMask/Eye1Visual/Eye1Pivot/Pupil1"), NodePath("../Visuals/CircleHeadMask/Eye2Visual"), NodePath("../Visuals/CircleHeadMask/Eye2Visual/Eye2Pivot/Pupil2"), NodePath("../Visuals/Foot1"), NodePath("../Visuals/Foot2")]
 
 [node name="ZOrdering" type="Node2D" parent="."]
 script = ExtResource("2_cxv7g")
@@ -228,11 +229,11 @@ position = Vector2(20, 0)
 [node name="Visuals" type="Node" parent="."]
 
 [node name="Body" type="Line2D" parent="Visuals" node_paths=PackedStringArray("nodes")]
+self_modulate = Color(1, 0, 0, 1)
 rotation = -0.00304679
 points = PackedVector2Array(0, 0, 0, -50)
 width = 125.0
 width_curve = SubResource("Curve_k3ojm")
-default_color = Color(1, 0, 0, 1)
 begin_cap_mode = 2
 end_cap_mode = 2
 round_precision = 12
@@ -241,12 +242,12 @@ script = ExtResource("1_37vlg")
 nodes = [NodePath("../../Points/Root"), NodePath("../../Points/Followers/Head/HeadTop")]
 
 [node name="Nose" type="Line2D" parent="Visuals" node_paths=PackedStringArray("nodes")]
+self_modulate = Color(1, 1, 0, 1)
 z_index = 1
 rotation = -0.00304679
 points = PackedVector2Array(40, -50, 80, -50)
 width = 50.0
 width_curve = SubResource("Curve_srp8i")
-default_color = Color(1, 1, 0, 1)
 begin_cap_mode = 2
 end_cap_mode = 2
 round_precision = 12
@@ -263,11 +264,11 @@ texture = ExtResource("1_20w2l")
 [node name="CircleHeadMask" type="Sprite2D" parent="Visuals"]
 clip_children = 1
 z_index = 2
-position = Vector2(0, -50)
+position = Vector2(0, -60)
 texture = ExtResource("7_0itus")
 
 [node name="Eye1Visual" type="Sprite2D" parent="Visuals/CircleHeadMask"]
-position = Vector2(19.2836, -6.73977)
+position = Vector2(19.2836, 3.26023)
 texture = ExtResource("7_3dx3e")
 
 [node name="Eye1Pivot" type="Node2D" parent="Visuals/CircleHeadMask/Eye1Visual"]
@@ -279,7 +280,7 @@ position = Vector2(10, 0)
 texture = ExtResource("1_20w2l")
 
 [node name="Eye2Visual" type="Sprite2D" parent="Visuals/CircleHeadMask"]
-position = Vector2(30, -20)
+position = Vector2(30, -10)
 texture = ExtResource("7_3dx3e")
 
 [node name="Eye2Pivot" type="Node2D" parent="Visuals/CircleHeadMask/Eye2Visual"]
@@ -291,12 +292,12 @@ position = Vector2(10, 0)
 texture = ExtResource("1_20w2l")
 
 [node name="Foot1" type="Line2D" parent="Visuals" node_paths=PackedStringArray("nodes")]
+self_modulate = Color(1, 1, 0, 1)
 z_index = -1
 rotation = -0.00304679
 points = PackedVector2Array(0, 40, 0, 70, 20, 70)
 width = 40.0
 width_curve = SubResource("Curve_5oka8")
-default_color = Color(1, 1, 0, 1)
 joint_mode = 2
 begin_cap_mode = 2
 end_cap_mode = 2
@@ -306,12 +307,12 @@ script = ExtResource("1_37vlg")
 nodes = [NodePath("../../Points/RemoteFeet/Foot1Upper/Foot11"), NodePath("../../Points/RemoteFeet/Foot1Upper/Foot11/Foot12/Foot13"), NodePath("../../Points/RemoteFeet/Foot1Upper/Foot11/Foot12/Foot13/Foot14")]
 
 [node name="Foot2" type="Line2D" parent="Visuals" node_paths=PackedStringArray("nodes")]
+self_modulate = Color(1, 1, 0, 1)
 z_index = -1
 rotation = -0.00304679
 points = PackedVector2Array(0, 0, 0, 30, 20, 30)
 width = 40.0
 width_curve = SubResource("Curve_5oka8")
-default_color = Color(1, 1, 0, 1)
 joint_mode = 2
 begin_cap_mode = 2
 end_cap_mode = 2
