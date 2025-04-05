@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://cup187fvw1yur"]
+[gd_scene load_steps=15 format=3 uid="uid://cup187fvw1yur"]
 
 [ext_resource type="Texture2D" uid="uid://dodsg4ccahpi7" path="res://mole/art/circle15.svg" id="1_20w2l"]
 [ext_resource type="Script" path="res://procedural_anim/link/link.gd" id="1_37vlg"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://mole/z_ordering.gd" id="2_cxv7g"]
 [ext_resource type="Script" path="res://mole/code/eye_pivots.gd" id="3_midl1"]
 [ext_resource type="Script" path="res://procedural_anim/follower/follower_o1.gd" id="4_8l4tu"]
+[ext_resource type="Script" path="res://mole/code/feet.gd" id="4_o2frt"]
 [ext_resource type="Texture2D" uid="uid://dd38y2nfpm8o6" path="res://mole/art/circle100.svg" id="7_0itus"]
 [ext_resource type="Texture2D" uid="uid://dulitlvlbsew6" path="res://mole/art/circle40.svg" id="7_3dx3e"]
 
@@ -21,6 +22,10 @@ point_count = 2
 _data = [Vector2(0, 1), 0.0, -1.0, 0, 1, Vector2(1, 0), -1.0, 0.0, 1, 0]
 point_count = 2
 
+[sub_resource type="Curve" id="Curve_5oka8"]
+_data = [Vector2(0, 0.5), 0.0, 0.0, 0, 1, Vector2(0.5, 0.5), 0.0, 1.0, 1, 1, Vector2(1, 1), 1.0, 0.0, 1, 0]
+point_count = 3
+
 [node name="Mole" type="CharacterBody2D"]
 
 [node name="MoleMovement" type="Node2D" parent="." node_paths=PackedStringArray("pivot_targets")]
@@ -33,6 +38,13 @@ script = ExtResource("2_cxv7g")
 [node name="EyePivots" type="Node2D" parent="."]
 script = ExtResource("3_midl1")
 
+[node name="Feet" type="Node2D" parent="."]
+script = ExtResource("4_o2frt")
+
+[node name="RestTimer" type="Timer" parent="Feet"]
+wait_time = 0.25
+one_shot = true
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_dbubr")
 
@@ -44,14 +56,6 @@ shape = SubResource("CircleShape2D_dbubr")
 scale = Vector2(1, 0.577)
 
 [node name="PivotTarget" type="Node2D" parent="Points/Scaler"]
-
-[node name="BaseTarget" type="Node2D" parent="Points/Scaler/PivotTarget"]
-position = Vector2(62.5, 0)
-
-[node name="RemoteBaseTarget" type="RemoteTransform2D" parent="Points/Scaler/PivotTarget/BaseTarget"]
-remote_path = NodePath("../../../../Remote/BaseTarget")
-update_rotation = false
-update_scale = false
 
 [node name="OffsetHead" type="Node2D" parent="Points/Scaler/PivotTarget"]
 
@@ -68,10 +72,23 @@ target = NodePath("../PivotTarget")
 [node name="Base" type="Node2D" parent="Points/Scaler/Pivot"]
 position = Vector2(62.5, 0)
 
-[node name="Remote" type="Node2D" parent="Points"]
+[node name="Foot1Upper" type="Node2D" parent="Points/Scaler/Pivot"]
+position = Vector2(0, 25)
 
-[node name="BaseTarget" type="Node2D" parent="Points/Remote"]
-position = Vector2(62.5, 0)
+[node name="RemoteFoot1Upper" type="RemoteTransform2D" parent="Points/Scaler/Pivot/Foot1Upper"]
+remote_path = NodePath("../../../../RemoteFeet/Foot1Upper")
+update_rotation = false
+update_scale = false
+
+[node name="Foot2Upper" type="Node2D" parent="Points/Scaler/Pivot"]
+position = Vector2(0, -25)
+
+[node name="RemoteFoot2Upper" type="RemoteTransform2D" parent="Points/Scaler/Pivot/Foot2Upper"]
+remote_path = NodePath("../../../../RemoteFeet/Foot2Upper")
+update_rotation = false
+update_scale = false
+
+[node name="Remote" type="Node2D" parent="Points"]
 
 [node name="OffsetHead" type="Node2D" parent="Points/Remote"]
 
@@ -178,6 +195,36 @@ remote_path = NodePath("../../../../../Visuals/CircleHeadMask/Eye2Visual")
 update_rotation = false
 update_scale = false
 
+[node name="RemoteFeet" type="Node2D" parent="Points"]
+
+[node name="Foot1Upper" type="Node2D" parent="Points/RemoteFeet"]
+position = Vector2(0, 14.425)
+
+[node name="Foot11" type="Node2D" parent="Points/RemoteFeet/Foot1Upper"]
+position = Vector2(0, 20)
+
+[node name="Foot12" type="Node2D" parent="Points/RemoteFeet/Foot1Upper/Foot11"]
+position = Vector2(0, 30)
+
+[node name="Foot13" type="Node2D" parent="Points/RemoteFeet/Foot1Upper/Foot11/Foot12"]
+
+[node name="Foot14" type="Node2D" parent="Points/RemoteFeet/Foot1Upper/Foot11/Foot12/Foot13"]
+position = Vector2(20, 0)
+
+[node name="Foot2Upper" type="Node2D" parent="Points/RemoteFeet"]
+position = Vector2(0, -14.425)
+
+[node name="Foot21" type="Node2D" parent="Points/RemoteFeet/Foot2Upper"]
+position = Vector2(0, 20)
+
+[node name="Foot22" type="Node2D" parent="Points/RemoteFeet/Foot2Upper/Foot21"]
+position = Vector2(0, 30)
+
+[node name="Foot23" type="Node2D" parent="Points/RemoteFeet/Foot2Upper/Foot21/Foot22"]
+
+[node name="Foot24" type="Node2D" parent="Points/RemoteFeet/Foot2Upper/Foot21/Foot22/Foot23"]
+position = Vector2(20, 0)
+
 [node name="Visuals" type="Node" parent="."]
 
 [node name="Body" type="Line2D" parent="Visuals" node_paths=PackedStringArray("nodes")]
@@ -242,3 +289,35 @@ self_modulate = Color(0, 0, 0, 1)
 z_index = 1
 position = Vector2(10, 0)
 texture = ExtResource("1_20w2l")
+
+[node name="Foot1" type="Line2D" parent="Visuals" node_paths=PackedStringArray("nodes")]
+z_index = -1
+rotation = -0.00304679
+points = PackedVector2Array(0, 40, 0, 70, 20, 70)
+width = 40.0
+width_curve = SubResource("Curve_5oka8")
+default_color = Color(1, 1, 0, 1)
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+round_precision = 12
+antialiased = true
+script = ExtResource("1_37vlg")
+nodes = [NodePath("../../Points/RemoteFeet/Foot1Upper/Foot11"), NodePath("../../Points/RemoteFeet/Foot1Upper/Foot11/Foot12/Foot13"), NodePath("../../Points/RemoteFeet/Foot1Upper/Foot11/Foot12/Foot13/Foot14")]
+
+[node name="Foot2" type="Line2D" parent="Visuals" node_paths=PackedStringArray("nodes")]
+z_index = -1
+rotation = -0.00304679
+points = PackedVector2Array(0, 0, 0, 30, 20, 30)
+width = 40.0
+width_curve = SubResource("Curve_5oka8")
+default_color = Color(1, 1, 0, 1)
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+round_precision = 12
+antialiased = true
+script = ExtResource("1_37vlg")
+nodes = [NodePath("../../Points/RemoteFeet/Foot2Upper/Foot21"), NodePath("../../Points/RemoteFeet/Foot2Upper/Foot21/Foot22/Foot23"), NodePath("../../Points/RemoteFeet/Foot2Upper/Foot21/Foot22/Foot23/Foot24")]
+
+[connection signal="start_move" from="MoleMovement" to="Feet" method="_on_mole_movement_start_move"]
