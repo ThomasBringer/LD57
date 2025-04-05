@@ -15,5 +15,3 @@ func _process(delta: float) -> void:
 	for i in len(nodes):
 		var node: Node2D = nodes[i]
 		set_point_position(i, node.global_position)
-		if i:
-			print(node.global_position)
