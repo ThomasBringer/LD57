@@ -584,7 +584,7 @@ position = Vector2(20, 0)
 [node name="Visuals" type="Node" parent="."]
 
 [node name="Body" type="Line2D" parent="Visuals" node_paths=PackedStringArray("nodes")]
-self_modulate = Color(1, 0, 0, 1)
+self_modulate = Color(0.635294, 0.14902, 0.2, 1)
 rotation = -0.00304679
 points = PackedVector2Array(0, 0, 0, -50)
 width = 125.0
@@ -597,7 +597,7 @@ script = ExtResource("1_37vlg")
 nodes = [NodePath("../../Points/Root"), NodePath("../../Points/Followers/Head/HeadTop")]
 
 [node name="Nose" type="Line2D" parent="Visuals" node_paths=PackedStringArray("nodes")]
-self_modulate = Color(1, 1, 0, 1)
+self_modulate = Color(0.909804, 0.717647, 0.588235, 1)
 z_index = 1
 rotation = -0.00304679
 points = PackedVector2Array(40, -50, 80, -50)
@@ -611,7 +611,7 @@ script = ExtResource("1_37vlg")
 nodes = [NodePath("../../Points/RemoteNose/Nose1"), NodePath("../../Points/RemoteNose/Nose2")]
 
 [node name="Nose2Visual" type="Sprite2D" parent="Visuals/Nose"]
-self_modulate = Color(0, 0, 0, 1)
+self_modulate = Color(0.14902, 0.168627, 0.266667, 1)
 position = Vector2(80.152, -49.756)
 rotation = 0.00304679
 texture = ExtResource("1_20w2l")
@@ -629,7 +629,7 @@ texture = ExtResource("7_3dx3e")
 [node name="Eye1Pivot" type="Node2D" parent="Visuals/CircleHeadMask/Eye1Visual"]
 
 [node name="Pupil1" type="Sprite2D" parent="Visuals/CircleHeadMask/Eye1Visual/Eye1Pivot"]
-self_modulate = Color(0, 0, 0, 1)
+self_modulate = Color(0.14902, 0.168627, 0.266667, 1)
 z_index = 1
 position = Vector2(10, 0)
 texture = ExtResource("1_20w2l")
@@ -641,13 +641,13 @@ texture = ExtResource("7_3dx3e")
 [node name="Eye2Pivot" type="Node2D" parent="Visuals/CircleHeadMask/Eye2Visual"]
 
 [node name="Pupil2" type="Sprite2D" parent="Visuals/CircleHeadMask/Eye2Visual/Eye2Pivot"]
-self_modulate = Color(0, 0, 0, 1)
+self_modulate = Color(0.14902, 0.168627, 0.266667, 1)
 z_index = 1
 position = Vector2(10, 0)
 texture = ExtResource("1_20w2l")
 
 [node name="Foot1" type="Line2D" parent="Visuals" node_paths=PackedStringArray("nodes")]
-self_modulate = Color(1, 1, 0, 1)
+self_modulate = Color(0.909804, 0.717647, 0.588235, 1)
 z_index = -1
 rotation = -0.00304679
 points = PackedVector2Array(0, 40, 0, 70, 20, 70)
@@ -662,7 +662,7 @@ script = ExtResource("1_37vlg")
 nodes = [NodePath("../../Points/RemoteFeet/Foot1Upper/Foot11"), NodePath("../../Points/RemoteFeet/Foot1Upper/Foot11/Foot12/Foot13"), NodePath("../../Points/RemoteFeet/Foot1Upper/Foot11/Foot12/Foot13/Foot14")]
 
 [node name="Foot2" type="Line2D" parent="Visuals" node_paths=PackedStringArray("nodes")]
-self_modulate = Color(1, 1, 0, 1)
+self_modulate = Color(0.909804, 0.717647, 0.588235, 1)
 z_index = -1
 rotation = -0.00304679
 points = PackedVector2Array(0, 0, 0, 30, 20, 30)
@@ -677,7 +677,7 @@ script = ExtResource("1_37vlg")
 nodes = [NodePath("../../Points/RemoteFeet/Foot2Upper/Foot21"), NodePath("../../Points/RemoteFeet/Foot2Upper/Foot21/Foot22/Foot23"), NodePath("../../Points/RemoteFeet/Foot2Upper/Foot21/Foot22/Foot23/Foot24")]
 
 [node name="TunnelParticles" type="GPUParticles2D" parent="."]
-modulate = Color(0.627451, 0.282353, 0.160784, 1)
+modulate = Color(0.45098, 0.243137, 0.223529, 1)
 z_index = -55
 emitting = false
 amount = 2000
@@ -702,13 +702,13 @@ position = Vector2(25, 0)
 rotation = -2.35619
 
 [node name="ShovelHandle" type="Sprite2D" parent="Attack/AttackPivot/HandShovel"]
-self_modulate = Color(1, 1, 0, 1)
+self_modulate = Color(0.996078, 0.905882, 0.380392, 1)
 z_index = -1
 position = Vector2(0, -50)
 texture = ExtResource("14_06ern")
 
 [node name="ShovelEnd" type="Sprite2D" parent="Attack/AttackPivot/HandShovel"]
-self_modulate = Color(0.1872, 0.61204, 0.78, 1)
+self_modulate = Color(0.227451, 0.266667, 0.4, 1)
 z_index = -1
 position = Vector2(0, -50)
 texture = ExtResource("15_imrhw")

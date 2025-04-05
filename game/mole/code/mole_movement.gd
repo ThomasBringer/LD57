@@ -15,7 +15,7 @@ var color_dict = {}
 
 signal start_move(start: bool)
 
-const UNDERGROUND_COLOR: Color = '#4c2714'
+const UNDERGROUND_COLOR: Color = '#3e2731'
 @onready var collision_shape_2d: CollisionShape2D = $"../CollisionShape2D"
 
 var is_underground: bool = false
