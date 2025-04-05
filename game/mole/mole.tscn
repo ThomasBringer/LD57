@@ -418,7 +418,7 @@ point_count = 2
 [sub_resource type="Curve2D" id="Curve2D_d6kej"]
 
 [node name="Mole" type="CharacterBody2D"]
-collision_mask = 126
+collision_mask = 382
 
 [node name="MoleMovement" type="Node2D" parent="." node_paths=PackedStringArray("pivot_targets", "graphics")]
 script = ExtResource("1_hyo3r")

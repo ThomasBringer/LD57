@@ -1,0 +1,30 @@
+[gd_scene load_steps=6 format=3 uid="uid://brib4hisckue7"]
+
+[ext_resource type="Script" path="res://grass/grass.gd" id="1_qigyp"]
+[ext_resource type="Shader" path="res://grass/shader/sway.gdshader" id="2_xm2ay"]
+[ext_resource type="Texture2D" uid="uid://bsttcthavgdxb" path="res://grass/grass.svg" id="3_h2s8o"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wjeji"]
+shader = ExtResource("2_xm2ay")
+shader_parameter/speed = 2.0
+shader_parameter/dist = 20.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ia8kx"]
+radius = 35.0
+height = 175.0
+
+[node name="GrassBlade" type="Area2D"]
+collision_layer = 256
+script = ExtResource("1_qigyp")
+
+[node name="Skewer" type="Node2D" parent="."]
+
+[node name="Sprite" type="Sprite2D" parent="Skewer"]
+self_modulate = Color(0.388235, 0.780392, 0.301961, 1)
+material = SubResource("ShaderMaterial_wjeji")
+position = Vector2(0, -75)
+texture = ExtResource("3_h2s8o")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -75)
+shape = SubResource("CapsuleShape2D_ia8kx")

@@ -94,6 +94,7 @@ attack={
 2d_physics/layer_6="Enemy"
 2d_physics/layer_7="Bullet"
 2d_physics/layer_8="Shovel"
+2d_physics/layer_9="Grass"
 
 [rendering]
 

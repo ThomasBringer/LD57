@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://0g3rdn4ty6qw"]
+[gd_scene load_steps=6 format=3 uid="uid://0g3rdn4ty6qw"]
 
 [ext_resource type="PackedScene" uid="uid://cup187fvw1yur" path="res://mole/mole.tscn" id="1_ga6f0"]
 [ext_resource type="PackedScene" uid="uid://hdgug401q12k" path="res://world/wall/wall.tscn" id="2_8tayu"]
 [ext_resource type="PackedScene" uid="uid://bms5g4bovbhjq" path="res://world/water/water.tscn" id="3_i5iys"]
 [ext_resource type="PackedScene" uid="uid://44pt0alt0s7a" path="res://world/rock/rock.tscn" id="4_4co0l"]
+[ext_resource type="PackedScene" uid="uid://brib4hisckue7" path="res://grass/grass_blade.tscn" id="5_bpj0g"]
 
 [node name="Main" type="Node2D"]
 
@@ -23,6 +24,15 @@ polygon = PackedVector2Array(-1280, -140, -610, -280, -413, 216, -1083, 241)
 
 [node name="Rock" parent="." instance=ExtResource("4_4co0l")]
 position = Vector2(-537, 468)
+
+[node name="GrassBlade" parent="." instance=ExtResource("5_bpj0g")]
+position = Vector2(219, 136)
+
+[node name="GrassBlade2" parent="." instance=ExtResource("5_bpj0g")]
+position = Vector2(76, 234)
+
+[node name="GrassBlade3" parent="." instance=ExtResource("5_bpj0g")]
+position = Vector2(182, 399)
 
 [editable path="Wall"]
 [editable path="Water"]
