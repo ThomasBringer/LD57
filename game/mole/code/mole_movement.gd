@@ -74,7 +74,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func go_underground() -> void:
 	trying_aboveground = false
-	z.z_index = 0
+	z.z_index = -10
 	mole.set_collision_mask_value(2, false)
 	recolor_underground()
 	speed = SPEED_UNDERGROUND

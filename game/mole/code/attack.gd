@@ -17,7 +17,7 @@ func is_pointing_front(pivot: Node2D) -> bool:
 	return dir.dot(Vector2.DOWN) >= - TOLERANCE
 
 func order(pivot: Node2D, node: Node2D, z: int) -> void:
-	node.z_index = -z if is_pointing_front(pivot) else z
+	node.z_index = 150 + (-z if is_pointing_front(pivot) else z)
 
 func _process(delta: float) -> void:
 	if anim.is_playing(): return

@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://cup187fvw1yur"]
+[gd_scene load_steps=32 format=3 uid="uid://cup187fvw1yur"]
 
 [ext_resource type="Texture2D" uid="uid://dodsg4ccahpi7" path="res://mole/art/circle15.svg" id="1_20w2l"]
 [ext_resource type="Script" path="res://procedural_anim/link/link.gd" id="1_37vlg"]
@@ -17,6 +17,7 @@
 [ext_resource type="Script" path="res://mole/code/slash.gd" id="15_by2bl"]
 [ext_resource type="Texture2D" uid="uid://bg31f63so51ku" path="res://mole/art/shovel_end.svg" id="15_imrhw"]
 [ext_resource type="Script" path="res://procedural_anim/b_spline/b_spline.gd" id="16_bt32w"]
+[ext_resource type="Script" path="res://mole/code/shovel_area.gd" id="16_y7fdw"]
 
 [sub_resource type="Curve" id="Curve_k3ojm"]
 _data = [Vector2(0, 1), 0.0, -0.2, 0, 1, Vector2(1, 0.8), -0.2, 0.0, 1, 0]
@@ -44,6 +45,9 @@ emission_sphere_radius = 80.0
 gravity = Vector3(0, 0, 0)
 scale_min = 0.5
 scale_curve = SubResource("CurveTexture_4c5l6")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_g8lq0"]
+radius = 70.0
 
 [sub_resource type="Animation" id="Animation_fp4rn"]
 length = 0.001
@@ -224,6 +228,23 @@ tracks/4/keys = {
 "method": &"remove_slash_point"
 }]
 }
+tracks/5/type = "method"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("AttackPivot/HandShovel/ShovelArea")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"start_attack"
+}, {
+"args": [],
+"method": &"end_attack"
+}]
+}
 
 [sub_resource type="Animation" id="Animation_hoaee"]
 resource_name = "attack"
@@ -365,6 +386,23 @@ tracks/4/keys = {
 "method": &"remove_slash_point"
 }]
 }
+tracks/5/type = "method"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("AttackPivot/HandShovel/ShovelArea")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"start_attack"
+}, {
+"args": [],
+"method": &"end_attack"
+}]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_sybnc"]
 _data = {
@@ -380,7 +418,7 @@ point_count = 2
 [sub_resource type="Curve2D" id="Curve2D_d6kej"]
 
 [node name="Mole" type="CharacterBody2D"]
-collision_mask = 6
+collision_mask = 126
 
 [node name="MoleMovement" type="Node2D" parent="." node_paths=PackedStringArray("pivot_targets", "graphics")]
 script = ExtResource("1_hyo3r")
@@ -404,7 +442,7 @@ one_shot = true
 shape = ExtResource("5_3cwe0")
 
 [node name="AreaWallChecker" type="Area2D" parent="."]
-collision_mask = 6
+collision_mask = 46
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AreaWallChecker"]
 shape = ExtResource("5_3cwe0")
@@ -700,7 +738,7 @@ script = ExtResource("12_rq3n0")
 [node name="AttackPivotTarget" type="Node2D" parent="Attack"]
 
 [node name="AttackPivot" type="Node2D" parent="Attack" node_paths=PackedStringArray("target")]
-position = Vector2(0, -40)
+position = Vector2(0, -50)
 script = ExtResource("1_rvp6h")
 speed_degrees = 720.0
 target = NodePath("../AttackPivotTarget")
@@ -726,6 +764,15 @@ texture = ExtResource("15_imrhw")
 [node name="ShovelTop" type="Node2D" parent="Attack/AttackPivot/HandShovel"]
 position = Vector2(0, -140)
 
+[node name="ShovelArea" type="Area2D" parent="Attack/AttackPivot/HandShovel"]
+position = Vector2(0, -115)
+collision_layer = 128
+collision_mask = 104
+script = ExtResource("16_y7fdw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Attack/AttackPivot/HandShovel/ShovelArea"]
+shape = SubResource("CircleShape2D_g8lq0")
+
 [node name="AnimAttack" type="AnimationPlayer" parent="Attack"]
 libraries = {
 "": SubResource("AnimationLibrary_sybnc")
@@ -735,7 +782,6 @@ libraries = {
 script = ExtResource("15_by2bl")
 
 [node name="SlashLine" type="Line2D" parent="Slash"]
-z_index = -52
 z_as_relative = false
 width = 100.0
 width_curve = SubResource("Curve_otd31")
@@ -747,3 +793,4 @@ script = ExtResource("16_bt32w")
 line = NodePath("../SlashLine")
 
 [connection signal="start_move" from="MoleMovement" to="Feet" method="_on_mole_movement_start_move"]
+[connection signal="body_entered" from="Attack/AttackPivot/HandShovel/ShovelArea" to="Attack/AttackPivot/HandShovel/ShovelArea" method="_on_body_entered"]

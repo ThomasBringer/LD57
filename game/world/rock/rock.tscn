@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://44pt0alt0s7a"]
+
+[ext_resource type="Script" path="res://world/rock/health.gd" id="1_8hd6o"]
+[ext_resource type="Script" path="res://misc/show_polygon.gd" id="1_v22ww"]
+
+[node name="Rock" type="StaticBody2D"]
+collision_layer = 8
+collision_mask = 129
+script = ExtResource("1_8hd6o")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(0, 0, 500, 0, 0, 500)
+script = ExtResource("1_v22ww")
+
+[node name="Polygon2D" type="Polygon2D" parent="CollisionPolygon2D"]
+self_modulate = Color(0.407843, 0.219608, 0.423529, 1)
+polygon = PackedVector2Array(0, 0, 100, 0, 0, 100)
+
+[node name="FlashTimer" type="Timer" parent="."]
+wait_time = 0.25
+one_shot = true
