@@ -663,9 +663,4 @@ curve = SubResource("Curve2D_d6kej")
 script = ExtResource("16_bt32w")
 line = NodePath("../SlashLine")
 
-[node name="SlashTimer" type="Timer" parent="Slash"]
-wait_time = 0.25
-one_shot = true
-
 [connection signal="start_move" from="MoleMovement" to="Feet" method="_on_mole_movement_start_move"]
-[connection signal="timeout" from="Slash/SlashTimer" to="Slash" method="_on_slash_timer_timeout"]
