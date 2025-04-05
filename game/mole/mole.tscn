@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://cup187fvw1yur"]
+[gd_scene load_steps=26 format=3 uid="uid://cup187fvw1yur"]
 
 [ext_resource type="Texture2D" uid="uid://dodsg4ccahpi7" path="res://mole/art/circle15.svg" id="1_20w2l"]
 [ext_resource type="Script" path="res://procedural_anim/link/link.gd" id="1_37vlg"]
@@ -11,6 +11,9 @@
 [ext_resource type="Texture2D" uid="uid://dd38y2nfpm8o6" path="res://mole/art/circle100.svg" id="7_0itus"]
 [ext_resource type="Texture2D" uid="uid://dulitlvlbsew6" path="res://mole/art/circle40.svg" id="7_3dx3e"]
 [ext_resource type="Texture2D" uid="uid://samfk2ssb1yd" path="res://mole/art/circle150.svg" id="11_raso5"]
+[ext_resource type="Script" path="res://mole/code/attack.gd" id="12_rq3n0"]
+[ext_resource type="Texture2D" uid="uid://cymujgjxtxkld" path="res://mole/art/shovel_handle.svg" id="14_06ern"]
+[ext_resource type="Texture2D" uid="uid://bg31f63so51ku" path="res://mole/art/shovel_end.svg" id="15_imrhw"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_dbubr"]
 radius = 62.5
@@ -42,12 +45,140 @@ gravity = Vector3(0, 0, 0)
 scale_min = 0.5
 scale_curve = SubResource("CurveTexture_4c5l6")
 
+[sub_resource type="Animation" id="Animation_fp4rn"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AttackPivot/HandShovel:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(25, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AttackPivot/HandShovel:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-2.35619]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AttackPivot/HandShovel:z_index")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_hdlhl"]
+resource_name = "attack"
+length = 0.2
+step = 0.0333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AttackPivot/HandShovel:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0666667, 0.0999, 0.133333, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(25, 80), Vector2(150, 70), Vector2(185, 40), Vector2(150, 10), Vector2(25, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AttackPivot/HandShovel:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0666667, 0.133333, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [-2.35619, -3.92699, -5.49779, -7.06858]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AttackPivot/HandShovel:z_index")
+tracks/2/interp = 1
+tracks/2/loop_wrap = false
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [50]
+}
+
+[sub_resource type="Animation" id="Animation_hoaee"]
+resource_name = "attack"
+length = 0.2
+step = 0.0333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AttackPivot/HandShovel:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0666667, 0.1, 0.133333, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(25, 0), Vector2(150, 10), Vector2(185, 40), Vector2(150, 70), Vector2(25, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AttackPivot/HandShovel:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = false
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0666667, 0.133333, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [-7.06858, -5.49779, -3.92699, -2.35619]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AttackPivot/HandShovel:z_index")
+tracks/2/interp = 1
+tracks/2/loop_wrap = false
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [50]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_sybnc"]
+_data = {
+"RESET": SubResource("Animation_fp4rn"),
+"attack1": SubResource("Animation_hdlhl"),
+"attack2": SubResource("Animation_hoaee")
+}
+
 [node name="Mole" type="CharacterBody2D"]
 
 [node name="MoleMovement" type="Node2D" parent="." node_paths=PackedStringArray("pivot_targets", "graphics")]
 script = ExtResource("1_hyo3r")
-pivot_targets = [NodePath("../Points/Scaler/PivotTarget"), NodePath("../Points/Followers/Head/Scaler/HeadPivotTarget"), NodePath("../Visuals/CircleHeadMask/Eye1Visual/Eye1Pivot"), NodePath("../Visuals/CircleHeadMask/Eye2Visual/Eye2Pivot")]
-graphics = [NodePath("../Visuals/Body"), NodePath("../Visuals/Nose"), NodePath("../Visuals/Nose/Nose2Visual"), NodePath("../Visuals/CircleHeadMask/Eye1Visual"), NodePath("../Visuals/CircleHeadMask/Eye1Visual/Eye1Pivot/Pupil1"), NodePath("../Visuals/CircleHeadMask/Eye2Visual"), NodePath("../Visuals/CircleHeadMask/Eye2Visual/Eye2Pivot/Pupil2"), NodePath("../Visuals/Foot1"), NodePath("../Visuals/Foot2")]
+pivot_targets = [NodePath("../Points/Scaler/PivotTarget"), NodePath("../Points/Followers/Head/Scaler/HeadPivotTarget"), NodePath("../Visuals/CircleHeadMask/Eye1Visual/Eye1Pivot"), NodePath("../Visuals/CircleHeadMask/Eye2Visual/Eye2Pivot"), NodePath("../Attack/AttackPivotTarget")]
+graphics = [NodePath("../Visuals/Body"), NodePath("../Visuals/Nose"), NodePath("../Visuals/Nose/Nose2Visual"), NodePath("../Visuals/CircleHeadMask/Eye1Visual"), NodePath("../Visuals/CircleHeadMask/Eye1Visual/Eye1Pivot/Pupil1"), NodePath("../Visuals/CircleHeadMask/Eye2Visual"), NodePath("../Visuals/CircleHeadMask/Eye2Visual/Eye2Pivot/Pupil2"), NodePath("../Visuals/Foot1"), NodePath("../Visuals/Foot2"), NodePath("../Attack/AttackPivot/HandShovel/ShovelHandle"), NodePath("../Attack/AttackPivot/HandShovel/ShovelEnd")]
 
 [node name="ZOrdering" type="Node2D" parent="."]
 script = ExtResource("2_cxv7g")
@@ -339,11 +470,45 @@ nodes = [NodePath("../../Points/RemoteFeet/Foot2Upper/Foot21"), NodePath("../../
 
 [node name="TunnelParticles" type="GPUParticles2D" parent="."]
 modulate = Color(0.627451, 0.282353, 0.160784, 1)
-z_index = -50
+z_index = -55
 emitting = false
 amount = 2000
 process_material = SubResource("ParticleProcessMaterial_seyhr")
 texture = ExtResource("11_raso5")
 lifetime = 5.0
+
+[node name="Attack" type="Node2D" parent="."]
+script = ExtResource("12_rq3n0")
+
+[node name="AttackPivotTarget" type="Node2D" parent="Attack"]
+
+[node name="AttackPivot" type="Node2D" parent="Attack" node_paths=PackedStringArray("target")]
+position = Vector2(0, -40)
+script = ExtResource("1_rvp6h")
+speed_degrees = 720.0
+target = NodePath("../AttackPivotTarget")
+
+[node name="HandShovel" type="Node2D" parent="Attack/AttackPivot"]
+self_modulate = Color(1, 1, 0, 1)
+position = Vector2(25, 0)
+rotation = -2.35619
+scale = Vector2(1, 1)
+
+[node name="ShovelHandle" type="Sprite2D" parent="Attack/AttackPivot/HandShovel"]
+self_modulate = Color(1, 1, 0, 1)
+z_index = -1
+position = Vector2(0, -50)
+texture = ExtResource("14_06ern")
+
+[node name="ShovelEnd" type="Sprite2D" parent="Attack/AttackPivot/HandShovel"]
+self_modulate = Color(0.1872, 0.61204, 0.78, 1)
+z_index = -1
+position = Vector2(0, -50)
+texture = ExtResource("15_imrhw")
+
+[node name="AnimAttack" type="AnimationPlayer" parent="Attack"]
+libraries = {
+"": SubResource("AnimationLibrary_sybnc")
+}
 
 [connection signal="start_move" from="MoleMovement" to="Feet" method="_on_mole_movement_start_move"]
