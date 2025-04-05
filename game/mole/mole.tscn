@@ -1,20 +1,26 @@
-[gd_scene load_steps=4 format=3 uid="uid://cup187fvw1yur"]
+[gd_scene load_steps=6 format=3 uid="uid://cup187fvw1yur"]
 
+[ext_resource type="Texture2D" uid="uid://dodsg4ccahpi7" path="res://mole/art/circle.svg" id="1_20w2l"]
 [ext_resource type="Script" path="res://mole/code/mole_movement.gd" id="1_hyo3r"]
-
-[sub_resource type="Curve" id="Curve_k3ojm"]
-_data = [Vector2(0, 0.72), 0.0, 0.28, 0, 1, Vector2(1, 1), 0.28, 0.0, 1, 0]
-point_count = 2
+[ext_resource type="Script" path="res://procedural_anim/rotate/rotator_o1.gd" id="1_rvp6h"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_dbubr"]
 radius = 62.5
 
+[sub_resource type="Curve" id="Curve_k3ojm"]
+_data = [Vector2(0, 0.8), 0.0, 0.2, 0, 1, Vector2(1, 1), 0.2, 0.0, 1, 0]
+point_count = 2
+
 [node name="Mole" type="CharacterBody2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_dbubr")
 
 [node name="Visuals" type="Node2D" parent="."]
 
 [node name="Body" type="Line2D" parent="Visuals"]
-points = PackedVector2Array(0, -92.5, 0, 0)
+rotation = -0.00304679
+points = PackedVector2Array(0, -90, 0, 0)
 width = 125.0
 width_curve = SubResource("Curve_k3ojm")
 begin_cap_mode = 2
@@ -22,8 +28,50 @@ end_cap_mode = 2
 round_precision = 12
 antialiased = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_dbubr")
+[node name="Points" type="Node2D" parent="."]
+
+[node name="Scaler" type="Node2D" parent="Points"]
+scale = Vector2(1, 0.577)
+
+[node name="PivotTarget" type="Node2D" parent="Points/Scaler"]
+
+[node name="BaseTarget" type="Node2D" parent="Points/Scaler/PivotTarget"]
+position = Vector2(62.5, 0)
+
+[node name="RemoteBaseTarget" type="RemoteTransform2D" parent="Points/Scaler/PivotTarget/BaseTarget"]
+remote_path = NodePath("../../../../BaseTarget")
+update_rotation = false
+update_scale = false
+
+[node name="Pivot" type="Node2D" parent="Points/Scaler" node_paths=PackedStringArray("target")]
+script = ExtResource("1_rvp6h")
+speed_degrees = 720.0
+target = NodePath("../PivotTarget")
+
+[node name="Base" type="Node2D" parent="Points/Scaler/Pivot"]
+position = Vector2(62.5, 0)
+
+[node name="RemoteBase" type="RemoteTransform2D" parent="Points/Scaler/Pivot/Base"]
+remote_path = NodePath("../../../../Base")
+update_rotation = false
+update_scale = false
+
+[node name="Base" type="Node2D" parent="Points"]
+position = Vector2(62.5, 0)
+
+[node name="Circle" type="Sprite2D" parent="Points/Base"]
+self_modulate = Color(1, 0.568627, 0.513726, 1)
+texture = ExtResource("1_20w2l")
+
+[node name="BaseTarget" type="Node2D" parent="Points"]
+position = Vector2(62.5, 0)
+
+[node name="HeadTarget" type="Node2D" parent="Points/BaseTarget"]
+position = Vector2(0, -90)
+
+[node name="Circle2" type="Sprite2D" parent="Points/BaseTarget/HeadTarget"]
+self_modulate = Color(1, 0.568627, 0.513726, 1)
+texture = ExtResource("1_20w2l")
 
 [node name="MoleMovement" type="Node2D" parent="."]
 script = ExtResource("1_hyo3r")

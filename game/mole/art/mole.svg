@@ -23,9 +23,9 @@
      borderopacity="1"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.4142136"
-     inkscape:cx="118.79394"
-     inkscape:cy="50.204581"
+     inkscape:zoom="2.8284271"
+     inkscape:cx="-1.0606602"
+     inkscape:cy="129.40054"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      inkscape:document-rotation="0"
@@ -120,4 +120,9 @@
        id="circle12"
        r="15"
        cy="73.6353"
-       cx="62.375259" /></g></svg>
+       cx="62.375259" /><circle
+       style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:#34acba;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.103901;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;-inkscape-stroke:none;paint-order:normal;stop-color:#000000;stop-opacity:1"
+       id="circle13"
+       cx="-148.64"
+       cy="182.86"
+       r="0.36000001" /></g></svg>
