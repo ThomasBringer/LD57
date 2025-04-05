@@ -8,13 +8,13 @@ var anim_i: int = 1
 
 @onready var hand_shovel: Node2D = $AttackPivot/HandShovel
 
-const TOLERANCE: float = .1
+const TOLERANCE: float = .3
 
 @onready var mole_movement: Node2D = $"../MoleMovement"
 
 func is_pointing_front(pivot: Node2D) -> bool:
 	var dir = pivot.global_transform.x
-	return dir.dot(Vector2.DOWN) > TOLERANCE
+	return dir.dot(Vector2.DOWN) >= - TOLERANCE
 
 func order(pivot: Node2D, node: Node2D, z: int) -> void:
 	node.z_index = -z if is_pointing_front(pivot) else z
