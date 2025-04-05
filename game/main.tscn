@@ -1,9 +1,9 @@
 [gd_scene load_steps=2 format=3 uid="uid://0g3rdn4ty6qw"]
 
-[ext_resource type="Texture2D" uid="uid://cf6w3vo860fl2" path="res://icon.svg" id="1_ryqug"]
+[ext_resource type="PackedScene" uid="uid://cup187fvw1yur" path="res://mole/mole.tscn" id="1_ga6f0"]
 
 [node name="Main" type="Node2D"]
 
-[node name="Icon" type="Sprite2D" parent="."]
-position = Vector2(54, 50)
-texture = ExtResource("1_ryqug")
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Mole" parent="." instance=ExtResource("1_ga6f0")]
