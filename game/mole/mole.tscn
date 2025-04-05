@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://cup187fvw1yur"]
+[gd_scene load_steps=33 format=3 uid="uid://cup187fvw1yur"]
 
 [ext_resource type="Texture2D" uid="uid://dodsg4ccahpi7" path="res://mole/art/circle15.svg" id="1_20w2l"]
 [ext_resource type="Script" path="res://procedural_anim/link/link.gd" id="1_37vlg"]
@@ -45,6 +45,9 @@ emission_sphere_radius = 80.0
 gravity = Vector3(0, 0, 0)
 scale_min = 0.5
 scale_curve = SubResource("CurveTexture_4c5l6")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_f1afp"]
+radius = 85.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_g8lq0"]
 radius = 70.0
@@ -417,7 +420,7 @@ point_count = 2
 
 [sub_resource type="Curve2D" id="Curve2D_d6kej"]
 
-[node name="Mole" type="CharacterBody2D"]
+[node name="Mole" type="CharacterBody2D" groups=["character", "mole"]]
 collision_mask = 382
 
 [node name="MoleMovement" type="Node2D" parent="." node_paths=PackedStringArray("pivot_targets", "graphics")]
@@ -724,13 +727,18 @@ nodes = [NodePath("../../../Points/RemoteFeet/Foot2Upper/Foot21"), NodePath("../
 
 [node name="TunnelParticles" type="GPUParticles2D" parent="."]
 modulate = Color(0.45098, 0.243137, 0.223529, 1)
-z_index = -55
+z_index = -500
 z_as_relative = false
 emitting = false
 amount = 2000
 process_material = SubResource("ParticleProcessMaterial_seyhr")
 texture = ExtResource("11_raso5")
 lifetime = 5.0
+
+[node name="AreaDestroyGrass" type="Area2D" parent="." groups=["underground"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AreaDestroyGrass"]
+shape = SubResource("CircleShape2D_f1afp")
 
 [node name="Attack" type="Node2D" parent="."]
 script = ExtResource("12_rq3n0")
@@ -745,7 +753,6 @@ target = NodePath("../AttackPivotTarget")
 
 [node name="HandShovel" type="Node2D" parent="Attack/AttackPivot"]
 self_modulate = Color(1, 1, 0, 1)
-z_as_relative = false
 position = Vector2(25, 0)
 rotation = -2.35619
 
@@ -767,7 +774,7 @@ position = Vector2(0, -140)
 [node name="ShovelArea" type="Area2D" parent="Attack/AttackPivot/HandShovel"]
 position = Vector2(0, -115)
 collision_layer = 128
-collision_mask = 104
+collision_mask = 360
 script = ExtResource("16_y7fdw")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Attack/AttackPivot/HandShovel/ShovelArea"]
@@ -793,4 +800,5 @@ script = ExtResource("16_bt32w")
 line = NodePath("../SlashLine")
 
 [connection signal="start_move" from="MoleMovement" to="Feet" method="_on_mole_movement_start_move"]
+[connection signal="area_entered" from="Attack/AttackPivot/HandShovel/ShovelArea" to="Attack/AttackPivot/HandShovel/ShovelArea" method="_on_area_entered"]
 [connection signal="body_entered" from="Attack/AttackPivot/HandShovel/ShovelArea" to="Attack/AttackPivot/HandShovel/ShovelArea" method="_on_body_entered"]

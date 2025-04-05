@@ -18,3 +18,8 @@ func _on_body_entered(body: Node2D) -> void:
 	if body in saved_bodies: return
 	saved_bodies.append(body)
 	body.damage()
+
+func _on_area_entered(area: Area2D) -> void:
+	if area in saved_bodies: return
+	saved_bodies.append(area)
+	area.damage()

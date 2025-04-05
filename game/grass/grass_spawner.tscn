@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://c0hag4uj74vjj"]
+
+[ext_resource type="Script" path="res://grass/grass_spawner.gd" id="1_tifry"]
+
+[node name="GrassSpawner" type="Node2D"]
+y_sort_enabled = true
+script = ExtResource("1_tifry")
