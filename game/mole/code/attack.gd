@@ -10,6 +10,8 @@ var anim_i: int = 1
 
 const TOLERANCE: float = .1
 
+@onready var mole_movement: Node2D = $"../MoleMovement"
+
 func is_pointing_front(pivot: Node2D) -> bool:
 	var dir = pivot.global_transform.x
 	return dir.dot(Vector2.DOWN) > TOLERANCE
@@ -22,7 +24,7 @@ func _process(delta: float) -> void:
 	order(pivot, hand_shovel, 50)
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("attack"):
+	if event.is_action_pressed("attack") and not anim.is_playing() and not mole_movement.is_underground:
 		attack()
 
 func attack() -> void:
@@ -31,4 +33,3 @@ func attack() -> void:
 func play_anim() -> void:
 	anim.play("attack" + str(anim_i))
 	anim_i = 3 - anim_i
-	

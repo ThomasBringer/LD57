@@ -67,8 +67,8 @@ func _unhandled_input(event: InputEvent) -> void:
 		recolor_underground()
 		speed = SPEED_UNDERGROUND
 		is_underground = true
-		if moving:
-			tunnel_particles.emitting = true
+		#if moving:
+		tunnel_particles.emitting = true
 	elif event.is_action_released("dig"):
 		tunnel_particles.emitting = false
 		recolor_default()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://cup187fvw1yur"]
+[gd_scene load_steps=29 format=3 uid="uid://cup187fvw1yur"]
 
 [ext_resource type="Texture2D" uid="uid://dodsg4ccahpi7" path="res://mole/art/circle15.svg" id="1_20w2l"]
 [ext_resource type="Script" path="res://procedural_anim/link/link.gd" id="1_37vlg"]
@@ -13,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://samfk2ssb1yd" path="res://mole/art/circle150.svg" id="11_raso5"]
 [ext_resource type="Script" path="res://mole/code/attack.gd" id="12_rq3n0"]
 [ext_resource type="Texture2D" uid="uid://cymujgjxtxkld" path="res://mole/art/shovel_handle.svg" id="14_06ern"]
+[ext_resource type="Script" path="res://mole/code/slash.gd" id="15_by2bl"]
 [ext_resource type="Texture2D" uid="uid://bg31f63so51ku" path="res://mole/art/shovel_end.svg" id="15_imrhw"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_dbubr"]
@@ -86,7 +87,7 @@ tracks/2/keys = {
 
 [sub_resource type="Animation" id="Animation_hdlhl"]
 resource_name = "attack"
-length = 0.2
+length = 0.4
 step = 0.0333
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -95,10 +96,10 @@ tracks/0/path = NodePath("AttackPivot/HandShovel:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = false
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.0666667, 0.0999, 0.133333, 0.2),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.0333, 0.0666667, 0.0999, 0.133333, 0.1665, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(25, 80), Vector2(150, 70), Vector2(185, 40), Vector2(150, 10), Vector2(25, 0)]
+"values": [Vector2(25, 80), Vector2(90, 100), Vector2(150, 85), Vector2(185, 40), Vector2(150, -5), Vector2(90, -20), Vector2(25, 0)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -124,10 +125,74 @@ tracks/2/keys = {
 "update": 1,
 "values": [50]
 }
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../Slash")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.0333, 0.0666667, 0.0999, 0.1332, 0.1665, 0.1998),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"values": [{
+"args": [],
+"method": &"add_first_slash_at_shovel"
+}, {
+"args": [],
+"method": &"add_slash_at_shovel"
+}, {
+"args": [],
+"method": &"add_slash_at_shovel"
+}, {
+"args": [],
+"method": &"add_slash_at_shovel"
+}, {
+"args": [],
+"method": &"add_slash_at_shovel"
+}, {
+"args": [],
+"method": &"add_slash_at_shovel"
+}, {
+"args": [],
+"method": &"add_slash_at_shovel"
+}]
+}
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../Slash")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.166667, 0.199833, 0.233133, 0.266433, 0.299733, 0.333033, 0.366333),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"values": [{
+"args": [],
+"method": &"remove_slash_point"
+}, {
+"args": [],
+"method": &"remove_slash_point"
+}, {
+"args": [],
+"method": &"remove_slash_point"
+}, {
+"args": [],
+"method": &"remove_slash_point"
+}, {
+"args": [],
+"method": &"remove_slash_point"
+}, {
+"args": [],
+"method": &"remove_slash_point"
+}, {
+"args": [],
+"method": &"remove_slash_point"
+}]
+}
 
 [sub_resource type="Animation" id="Animation_hoaee"]
 resource_name = "attack"
-length = 0.2
+length = 0.4
 step = 0.0333
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -136,10 +201,10 @@ tracks/0/path = NodePath("AttackPivot/HandShovel:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = false
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.0666667, 0.1, 0.133333, 0.2),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.0333333, 0.0666667, 0.0999333, 0.133333, 0.166667, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(25, 0), Vector2(150, 10), Vector2(185, 40), Vector2(150, 70), Vector2(25, 0)]
+"values": [Vector2(25, 0), Vector2(90, -20), Vector2(150, -5), Vector2(185, 40), Vector2(150, 85), Vector2(90, 100), Vector2(25, 0)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -165,6 +230,70 @@ tracks/2/keys = {
 "update": 1,
 "values": [50]
 }
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../Slash")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.0333, 0.0666333, 0.0998667, 0.133167, 0.166467, 0.1998),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"values": [{
+"args": [],
+"method": &"add_first_slash_at_shovel"
+}, {
+"args": [],
+"method": &"add_slash_at_shovel"
+}, {
+"args": [],
+"method": &"add_slash_at_shovel"
+}, {
+"args": [],
+"method": &"add_slash_at_shovel"
+}, {
+"args": [],
+"method": &"add_slash_at_shovel"
+}, {
+"args": [],
+"method": &"add_slash_at_shovel"
+}, {
+"args": [],
+"method": &"add_slash_at_shovel"
+}]
+}
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../Slash")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.166667, 0.199833, 0.233133, 0.266433, 0.299733, 0.333033, 0.366333),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"values": [{
+"args": [],
+"method": &"remove_slash_point"
+}, {
+"args": [],
+"method": &"remove_slash_point"
+}, {
+"args": [],
+"method": &"remove_slash_point"
+}, {
+"args": [],
+"method": &"remove_slash_point"
+}, {
+"args": [],
+"method": &"remove_slash_point"
+}, {
+"args": [],
+"method": &"remove_slash_point"
+}, {
+"args": [],
+"method": &"remove_slash_point"
+}]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_sybnc"]
 _data = {
@@ -172,6 +301,16 @@ _data = {
 "attack1": SubResource("Animation_hdlhl"),
 "attack2": SubResource("Animation_hoaee")
 }
+
+[sub_resource type="Curve" id="Curve_otd31"]
+_data = [Vector2(0, 0), 0.0, 1.0, 0, 1, Vector2(1, 1), 1.0, 0.0, 1, 0]
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_d6kej"]
+_data = {
+"points": PackedVector2Array(0, 0, 52.375, -3.425, 100, 200, -39.1007, 37.1626, 39.1007, -37.1626, 239, 138, -14.0308, 42.0923, 14.0308, -42.0923, 321, -2)
+}
+point_count = 3
 
 [node name="Mole" type="CharacterBody2D"]
 
@@ -492,7 +631,6 @@ target = NodePath("../AttackPivotTarget")
 self_modulate = Color(1, 1, 0, 1)
 position = Vector2(25, 0)
 rotation = -2.35619
-scale = Vector2(1, 1)
 
 [node name="ShovelHandle" type="Sprite2D" parent="Attack/AttackPivot/HandShovel"]
 self_modulate = Color(1, 1, 0, 1)
@@ -506,9 +644,29 @@ z_index = -1
 position = Vector2(0, -50)
 texture = ExtResource("15_imrhw")
 
+[node name="ShovelTop" type="Node2D" parent="Attack/AttackPivot/HandShovel"]
+position = Vector2(0, -140)
+
 [node name="AnimAttack" type="AnimationPlayer" parent="Attack"]
 libraries = {
 "": SubResource("AnimationLibrary_sybnc")
 }
 
+[node name="Slash" type="Node" parent="."]
+script = ExtResource("15_by2bl")
+
+[node name="SlashLine" type="Line2D" parent="Slash"]
+z_index = -52
+points = PackedVector2Array(93, 174, 239, 129, 326, 0)
+width = 100.0
+width_curve = SubResource("Curve_otd31")
+
+[node name="SlashPath" type="Path2D" parent="Slash"]
+curve = SubResource("Curve2D_d6kej")
+
+[node name="SlashTimer" type="Timer" parent="Slash"]
+wait_time = 0.25
+one_shot = true
+
 [connection signal="start_move" from="MoleMovement" to="Feet" method="_on_mole_movement_start_move"]
+[connection signal="timeout" from="Slash/SlashTimer" to="Slash" method="_on_slash_timer_timeout"]
