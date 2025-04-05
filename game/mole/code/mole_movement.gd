@@ -5,6 +5,7 @@ const SPEED_UNDERGROUND: float = 1500
 
 var speed: float = SPEED
 @onready var mole: CharacterBody2D = owner
+@onready var z: Node2D = $"../Visuals/Z"
 
 @export var pivot_targets: Array[Node2D]
 @onready var offset_head: Node2D = $"../Points/Scaler/PivotTarget/OffsetHead"
@@ -21,6 +22,9 @@ const UNDERGROUND_COLOR: Color = '#3e2731'
 var is_underground: bool = false
 @onready var tunnel_particles: GPUParticles2D = $"../TunnelParticles"
 const TUNNEL_FORWARD: float = 50
+
+@onready var area_wall_checker: Area2D = $"../AreaWallChecker"
+var trying_aboveground: bool = false
 
 var moving: bool = false
 func set_moving(is_moving: bool) -> void:
@@ -64,13 +68,32 @@ func recolor_underground() -> void:
 	
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("dig"):
-		recolor_underground()
-		speed = SPEED_UNDERGROUND
-		is_underground = true
-		#if moving:
-		tunnel_particles.emitting = true
+		go_underground()
 	elif event.is_action_released("dig"):
-		tunnel_particles.emitting = false
-		recolor_default()
-		speed = SPEED
-		is_underground = false
+		try_go_aboveground()
+
+func go_underground() -> void:
+	trying_aboveground = false
+	z.z_index = 0
+	mole.set_collision_mask_value(2, false)
+	recolor_underground()
+	speed = SPEED_UNDERGROUND
+	is_underground = true
+	#if moving:
+	tunnel_particles.emitting = true
+
+func try_go_aboveground() -> void:
+	trying_aboveground = true
+	while area_wall_checker.has_overlapping_bodies() && trying_aboveground:
+		await get_tree().process_frame
+	if trying_aboveground:
+		go_aboveground()
+
+func go_aboveground() -> void:
+	trying_aboveground = false
+	z.z_index = 150
+	mole.set_collision_mask_value(2, true)
+	tunnel_particles.emitting = false
+	recolor_default()
+	speed = SPEED
+	is_underground = false

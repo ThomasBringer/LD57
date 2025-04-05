@@ -4,10 +4,11 @@
 [ext_resource type="Script" path="res://procedural_anim/link/link.gd" id="1_37vlg"]
 [ext_resource type="Script" path="res://mole/code/mole_movement.gd" id="1_hyo3r"]
 [ext_resource type="Script" path="res://procedural_anim/rotate/rotator_o1.gd" id="1_rvp6h"]
-[ext_resource type="Script" path="res://mole/z_ordering.gd" id="2_cxv7g"]
+[ext_resource type="Script" path="res://mole/code/z_ordering.gd" id="2_cxv7g"]
 [ext_resource type="Script" path="res://mole/code/eye_pivots.gd" id="3_midl1"]
 [ext_resource type="Script" path="res://procedural_anim/follower/follower_o1.gd" id="4_8l4tu"]
 [ext_resource type="Script" path="res://mole/code/feet.gd" id="4_o2frt"]
+[ext_resource type="Shape2D" uid="uid://ck6a8i7d6dcmb" path="res://mole/mole_shape.tres" id="5_3cwe0"]
 [ext_resource type="Texture2D" uid="uid://dd38y2nfpm8o6" path="res://mole/art/circle100.svg" id="7_0itus"]
 [ext_resource type="Texture2D" uid="uid://dulitlvlbsew6" path="res://mole/art/circle40.svg" id="7_3dx3e"]
 [ext_resource type="Texture2D" uid="uid://samfk2ssb1yd" path="res://mole/art/circle150.svg" id="11_raso5"]
@@ -16,9 +17,6 @@
 [ext_resource type="Script" path="res://mole/code/slash.gd" id="15_by2bl"]
 [ext_resource type="Texture2D" uid="uid://bg31f63so51ku" path="res://mole/art/shovel_end.svg" id="15_imrhw"]
 [ext_resource type="Script" path="res://procedural_anim/b_spline/b_spline.gd" id="16_bt32w"]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_dbubr"]
-radius = 62.5
 
 [sub_resource type="Curve" id="Curve_k3ojm"]
 _data = [Vector2(0, 1), 0.0, -0.2, 0, 1, Vector2(1, 0.8), -0.2, 0.0, 1, 0]
@@ -382,11 +380,12 @@ point_count = 2
 [sub_resource type="Curve2D" id="Curve2D_d6kej"]
 
 [node name="Mole" type="CharacterBody2D"]
+collision_mask = 6
 
 [node name="MoleMovement" type="Node2D" parent="." node_paths=PackedStringArray("pivot_targets", "graphics")]
 script = ExtResource("1_hyo3r")
-pivot_targets = [NodePath("../Points/Scaler/PivotTarget"), NodePath("../Points/Followers/Head/Scaler/HeadPivotTarget"), NodePath("../Visuals/CircleHeadMask/Eye1Visual/Eye1Pivot"), NodePath("../Visuals/CircleHeadMask/Eye2Visual/Eye2Pivot"), NodePath("../Attack/AttackPivotTarget")]
-graphics = [NodePath("../Visuals/Body"), NodePath("../Visuals/Nose"), NodePath("../Visuals/Nose/Nose2Visual"), NodePath("../Visuals/CircleHeadMask/Eye1Visual"), NodePath("../Visuals/CircleHeadMask/Eye1Visual/Eye1Pivot/Pupil1"), NodePath("../Visuals/CircleHeadMask/Eye2Visual"), NodePath("../Visuals/CircleHeadMask/Eye2Visual/Eye2Pivot/Pupil2"), NodePath("../Visuals/Foot1"), NodePath("../Visuals/Foot2"), NodePath("../Attack/AttackPivot/HandShovel/ShovelHandle"), NodePath("../Attack/AttackPivot/HandShovel/ShovelEnd")]
+pivot_targets = [NodePath("../Points/Scaler/PivotTarget"), NodePath("../Points/Followers/Head/Scaler/HeadPivotTarget"), NodePath("../Visuals/Z/CircleHeadMask/Eye1Visual/Eye1Pivot"), NodePath("../Visuals/Z/CircleHeadMask/Eye2Visual/Eye2Pivot"), NodePath("../Attack/AttackPivotTarget")]
+graphics = [NodePath("../Visuals/Z/Body"), NodePath("../Visuals/Z/Nose"), NodePath("../Visuals/Z/Nose/Nose2Visual"), NodePath("../Visuals/Z/CircleHeadMask/Eye1Visual"), NodePath("../Visuals/Z/CircleHeadMask/Eye1Visual/Eye1Pivot/Pupil1"), NodePath("../Visuals/Z/CircleHeadMask/Eye2Visual"), NodePath("../Visuals/Z/CircleHeadMask/Eye2Visual/Eye2Pivot/Pupil2"), NodePath("../Visuals/Z/Foot1"), NodePath("../Visuals/Z/Foot2"), NodePath("../Attack/AttackPivot/HandShovel/ShovelHandle"), NodePath("../Attack/AttackPivot/HandShovel/ShovelEnd")]
 
 [node name="ZOrdering" type="Node2D" parent="."]
 script = ExtResource("2_cxv7g")
@@ -401,8 +400,14 @@ script = ExtResource("4_o2frt")
 wait_time = 0.25
 one_shot = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_dbubr")
+[node name="CollisionShape" type="CollisionShape2D" parent="."]
+shape = ExtResource("5_3cwe0")
+
+[node name="AreaWallChecker" type="Area2D" parent="."]
+collision_mask = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AreaWallChecker"]
+shape = ExtResource("5_3cwe0")
 
 [node name="Points" type="Node2D" parent="."]
 
@@ -512,7 +517,7 @@ update_scale = false
 position = Vector2(0, -10)
 
 [node name="RemoteCircleHeadMask" type="RemoteTransform2D" parent="Points/Followers/Head/HeadTop"]
-remote_path = NodePath("../../../../../Visuals/CircleHeadMask")
+remote_path = NodePath("../../../../../Visuals/Z/CircleHeadMask")
 update_rotation = false
 update_scale = false
 
@@ -525,7 +530,7 @@ position = Vector2(40, -50)
 position = Vector2(80, -50)
 
 [node name="RemoteNose2Visual" type="RemoteTransform2D" parent="Points/RemoteNose/Nose2"]
-remote_path = NodePath("../../../../Visuals/Nose/Nose2Visual")
+remote_path = NodePath("../../../../Visuals/Z/Nose/Nose2Visual")
 
 [node name="RemoteEyes" type="Node2D" parent="Points"]
 
@@ -536,7 +541,7 @@ position = Vector2(19.2836, -36.7398)
 position = Vector2(0, -20)
 
 [node name="RemoteEye1" type="RemoteTransform2D" parent="Points/RemoteEyes/Eye1Base/Eye1"]
-remote_path = NodePath("../../../../../Visuals/CircleHeadMask/Eye1Visual")
+remote_path = NodePath("../../../../../Visuals/Z/CircleHeadMask/Eye1Visual")
 update_rotation = false
 update_scale = false
 
@@ -547,7 +552,7 @@ position = Vector2(30, -50)
 position = Vector2(0, -20)
 
 [node name="RemoteEye2" type="RemoteTransform2D" parent="Points/RemoteEyes/Eye2Base/Eye2"]
-remote_path = NodePath("../../../../../Visuals/CircleHeadMask/Eye2Visual")
+remote_path = NodePath("../../../../../Visuals/Z/CircleHeadMask/Eye2Visual")
 update_rotation = false
 update_scale = false
 
@@ -583,7 +588,10 @@ position = Vector2(20, 0)
 
 [node name="Visuals" type="Node" parent="."]
 
-[node name="Body" type="Line2D" parent="Visuals" node_paths=PackedStringArray("nodes")]
+[node name="Z" type="Node2D" parent="Visuals"]
+z_index = 150
+
+[node name="Body" type="Line2D" parent="Visuals/Z" node_paths=PackedStringArray("nodes")]
 self_modulate = Color(0.635294, 0.14902, 0.2, 1)
 rotation = -0.00304679
 points = PackedVector2Array(0, 0, 0, -50)
@@ -594,9 +602,9 @@ end_cap_mode = 2
 round_precision = 12
 antialiased = true
 script = ExtResource("1_37vlg")
-nodes = [NodePath("../../Points/Root"), NodePath("../../Points/Followers/Head/HeadTop")]
+nodes = [NodePath("../../../Points/Root"), NodePath("../../../Points/Followers/Head/HeadTop")]
 
-[node name="Nose" type="Line2D" parent="Visuals" node_paths=PackedStringArray("nodes")]
+[node name="Nose" type="Line2D" parent="Visuals/Z" node_paths=PackedStringArray("nodes")]
 self_modulate = Color(0.909804, 0.717647, 0.588235, 1)
 z_index = 1
 rotation = -0.00304679
@@ -608,45 +616,45 @@ end_cap_mode = 2
 round_precision = 12
 antialiased = true
 script = ExtResource("1_37vlg")
-nodes = [NodePath("../../Points/RemoteNose/Nose1"), NodePath("../../Points/RemoteNose/Nose2")]
+nodes = [NodePath("../../../Points/RemoteNose/Nose1"), NodePath("../../../Points/RemoteNose/Nose2")]
 
-[node name="Nose2Visual" type="Sprite2D" parent="Visuals/Nose"]
+[node name="Nose2Visual" type="Sprite2D" parent="Visuals/Z/Nose"]
 self_modulate = Color(0.14902, 0.168627, 0.266667, 1)
 position = Vector2(80.152, -49.756)
 rotation = 0.00304679
 texture = ExtResource("1_20w2l")
 
-[node name="CircleHeadMask" type="Sprite2D" parent="Visuals"]
+[node name="CircleHeadMask" type="Sprite2D" parent="Visuals/Z"]
 clip_children = 1
 z_index = 2
 position = Vector2(0, -60)
 texture = ExtResource("7_0itus")
 
-[node name="Eye1Visual" type="Sprite2D" parent="Visuals/CircleHeadMask"]
+[node name="Eye1Visual" type="Sprite2D" parent="Visuals/Z/CircleHeadMask"]
 position = Vector2(19.2836, 3.26023)
 texture = ExtResource("7_3dx3e")
 
-[node name="Eye1Pivot" type="Node2D" parent="Visuals/CircleHeadMask/Eye1Visual"]
+[node name="Eye1Pivot" type="Node2D" parent="Visuals/Z/CircleHeadMask/Eye1Visual"]
 
-[node name="Pupil1" type="Sprite2D" parent="Visuals/CircleHeadMask/Eye1Visual/Eye1Pivot"]
+[node name="Pupil1" type="Sprite2D" parent="Visuals/Z/CircleHeadMask/Eye1Visual/Eye1Pivot"]
 self_modulate = Color(0.14902, 0.168627, 0.266667, 1)
 z_index = 1
 position = Vector2(10, 0)
 texture = ExtResource("1_20w2l")
 
-[node name="Eye2Visual" type="Sprite2D" parent="Visuals/CircleHeadMask"]
+[node name="Eye2Visual" type="Sprite2D" parent="Visuals/Z/CircleHeadMask"]
 position = Vector2(30, -10)
 texture = ExtResource("7_3dx3e")
 
-[node name="Eye2Pivot" type="Node2D" parent="Visuals/CircleHeadMask/Eye2Visual"]
+[node name="Eye2Pivot" type="Node2D" parent="Visuals/Z/CircleHeadMask/Eye2Visual"]
 
-[node name="Pupil2" type="Sprite2D" parent="Visuals/CircleHeadMask/Eye2Visual/Eye2Pivot"]
+[node name="Pupil2" type="Sprite2D" parent="Visuals/Z/CircleHeadMask/Eye2Visual/Eye2Pivot"]
 self_modulate = Color(0.14902, 0.168627, 0.266667, 1)
 z_index = 1
 position = Vector2(10, 0)
 texture = ExtResource("1_20w2l")
 
-[node name="Foot1" type="Line2D" parent="Visuals" node_paths=PackedStringArray("nodes")]
+[node name="Foot1" type="Line2D" parent="Visuals/Z" node_paths=PackedStringArray("nodes")]
 self_modulate = Color(0.909804, 0.717647, 0.588235, 1)
 z_index = -1
 rotation = -0.00304679
@@ -659,9 +667,9 @@ end_cap_mode = 2
 round_precision = 12
 antialiased = true
 script = ExtResource("1_37vlg")
-nodes = [NodePath("../../Points/RemoteFeet/Foot1Upper/Foot11"), NodePath("../../Points/RemoteFeet/Foot1Upper/Foot11/Foot12/Foot13"), NodePath("../../Points/RemoteFeet/Foot1Upper/Foot11/Foot12/Foot13/Foot14")]
+nodes = [NodePath("../../../Points/RemoteFeet/Foot1Upper/Foot11"), NodePath("../../../Points/RemoteFeet/Foot1Upper/Foot11/Foot12/Foot13"), NodePath("../../../Points/RemoteFeet/Foot1Upper/Foot11/Foot12/Foot13/Foot14")]
 
-[node name="Foot2" type="Line2D" parent="Visuals" node_paths=PackedStringArray("nodes")]
+[node name="Foot2" type="Line2D" parent="Visuals/Z" node_paths=PackedStringArray("nodes")]
 self_modulate = Color(0.909804, 0.717647, 0.588235, 1)
 z_index = -1
 rotation = -0.00304679
@@ -674,11 +682,12 @@ end_cap_mode = 2
 round_precision = 12
 antialiased = true
 script = ExtResource("1_37vlg")
-nodes = [NodePath("../../Points/RemoteFeet/Foot2Upper/Foot21"), NodePath("../../Points/RemoteFeet/Foot2Upper/Foot21/Foot22/Foot23"), NodePath("../../Points/RemoteFeet/Foot2Upper/Foot21/Foot22/Foot23/Foot24")]
+nodes = [NodePath("../../../Points/RemoteFeet/Foot2Upper/Foot21"), NodePath("../../../Points/RemoteFeet/Foot2Upper/Foot21/Foot22/Foot23"), NodePath("../../../Points/RemoteFeet/Foot2Upper/Foot21/Foot22/Foot23/Foot24")]
 
 [node name="TunnelParticles" type="GPUParticles2D" parent="."]
 modulate = Color(0.45098, 0.243137, 0.223529, 1)
 z_index = -55
+z_as_relative = false
 emitting = false
 amount = 2000
 process_material = SubResource("ParticleProcessMaterial_seyhr")
@@ -698,6 +707,7 @@ target = NodePath("../AttackPivotTarget")
 
 [node name="HandShovel" type="Node2D" parent="Attack/AttackPivot"]
 self_modulate = Color(1, 1, 0, 1)
+z_as_relative = false
 position = Vector2(25, 0)
 rotation = -2.35619
 
@@ -726,6 +736,7 @@ script = ExtResource("15_by2bl")
 
 [node name="SlashLine" type="Line2D" parent="Slash"]
 z_index = -52
+z_as_relative = false
 width = 100.0
 width_curve = SubResource("Curve_otd31")
 joint_mode = 2

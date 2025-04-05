@@ -1,9 +1,25 @@
-[gd_scene load_steps=2 format=3 uid="uid://0g3rdn4ty6qw"]
+[gd_scene load_steps=4 format=3 uid="uid://0g3rdn4ty6qw"]
 
 [ext_resource type="PackedScene" uid="uid://cup187fvw1yur" path="res://mole/mole.tscn" id="1_ga6f0"]
+[ext_resource type="PackedScene" uid="uid://hdgug401q12k" path="res://world/wall/wall.tscn" id="2_8tayu"]
+[ext_resource type="PackedScene" uid="uid://bms5g4bovbhjq" path="res://world/water/water.tscn" id="3_i5iys"]
 
 [node name="Main" type="Node2D"]
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="Mole" parent="." instance=ExtResource("1_ga6f0")]
+
+[node name="Wall" parent="." instance=ExtResource("2_8tayu")]
+z_index = 100
+
+[node name="CollisionPolygon2D" parent="Wall" index="0"]
+polygon = PackedVector2Array(812, -675, 631, -400, 618, 144, 1019, 721, 457, 641, 467, -405, 59, -808, 654, -841)
+
+[node name="Water" parent="." instance=ExtResource("3_i5iys")]
+
+[node name="CollisionPolygon2D" parent="Water" index="0"]
+polygon = PackedVector2Array(-1280, -140, -610, -280, -413, 216, -1083, 241)
+
+[editable path="Wall"]
+[editable path="Water"]

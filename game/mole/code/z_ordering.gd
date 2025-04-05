@@ -1,7 +1,7 @@
 extends Node2D
 
 @onready var head_pivot: Node2D = $"../Points/Followers/Head/Scaler/HeadPivot"
-@onready var nose: Line2D = $"../Visuals/Nose"
+@onready var nose: Line2D = $"../Visuals/Z/Nose"
 const TOLERANCE: float = .1
 
 #@onready var eye1_pivot: Node2D = $"../Points/Followers/Head/Scaler/HeadPivot/Eye1BasePivot"

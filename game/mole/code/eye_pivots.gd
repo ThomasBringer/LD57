@@ -5,10 +5,10 @@ extends Node2D
 @onready var eye1_pivot: Node2D = $"../Points/Followers/Head/Scaler/Eye1BasePivot"
 @onready var eye2_pivot: Node2D = $"../Points/Followers/Head/Scaler/Eye2BasePivot"
 
-@onready var eye1: Sprite2D = $"../Visuals/CircleHeadMask/Eye1Visual"
-@onready var eye2: Sprite2D = $"../Visuals/CircleHeadMask/Eye2Visual"
+@onready var eye1: Sprite2D = $"../Visuals/Z/CircleHeadMask/Eye1Visual"
+@onready var eye2: Sprite2D = $"../Visuals/Z/CircleHeadMask/Eye2Visual"
 
-@onready var circle_head_mask: Sprite2D = $"../Visuals/CircleHeadMask"
+@onready var circle_head_mask: Sprite2D = $"../Visuals/Z/CircleHeadMask"
 
 const SPREAD_DEGREES: float = 35
 const TOLERANCE: float = .1
