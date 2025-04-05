@@ -656,7 +656,6 @@ script = ExtResource("15_by2bl")
 z_index = -52
 width = 100.0
 width_curve = SubResource("Curve_otd31")
-joint_mode = 2
 
 [node name="SlashPath" type="Path2D" parent="Slash" node_paths=PackedStringArray("line")]
 curve = SubResource("Curve2D_d6kej")
