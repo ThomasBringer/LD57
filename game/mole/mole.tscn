@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://cup187fvw1yur"]
+[gd_scene load_steps=19 format=3 uid="uid://cup187fvw1yur"]
 
 [ext_resource type="Texture2D" uid="uid://dodsg4ccahpi7" path="res://mole/art/circle15.svg" id="1_20w2l"]
 [ext_resource type="Script" path="res://procedural_anim/link/link.gd" id="1_37vlg"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" path="res://mole/code/feet.gd" id="4_o2frt"]
 [ext_resource type="Texture2D" uid="uid://dd38y2nfpm8o6" path="res://mole/art/circle100.svg" id="7_0itus"]
 [ext_resource type="Texture2D" uid="uid://dulitlvlbsew6" path="res://mole/art/circle40.svg" id="7_3dx3e"]
+[ext_resource type="Texture2D" uid="uid://samfk2ssb1yd" path="res://mole/art/circle150.svg" id="11_raso5"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_dbubr"]
 radius = 62.5
@@ -25,6 +26,21 @@ point_count = 2
 [sub_resource type="Curve" id="Curve_5oka8"]
 _data = [Vector2(0, 0.5), 0.0, 0.0, 0, 1, Vector2(0.5, 0.5), 0.0, 1.0, 1, 1, Vector2(1, 1), 1.0, 0.0, 1, 0]
 point_count = 3
+
+[sub_resource type="Curve" id="Curve_frmlo"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.99, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_4c5l6"]
+curve = SubResource("Curve_frmlo")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_seyhr"]
+particle_flag_disable_z = true
+emission_shape = 2
+emission_sphere_radius = 80.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.5
+scale_curve = SubResource("CurveTexture_4c5l6")
 
 [node name="Mole" type="CharacterBody2D"]
 
@@ -320,5 +336,14 @@ round_precision = 12
 antialiased = true
 script = ExtResource("1_37vlg")
 nodes = [NodePath("../../Points/RemoteFeet/Foot2Upper/Foot21"), NodePath("../../Points/RemoteFeet/Foot2Upper/Foot21/Foot22/Foot23"), NodePath("../../Points/RemoteFeet/Foot2Upper/Foot21/Foot22/Foot23/Foot24")]
+
+[node name="TunnelParticles" type="GPUParticles2D" parent="."]
+modulate = Color(0.627451, 0.282353, 0.160784, 1)
+z_index = -50
+emitting = false
+amount = 2000
+process_material = SubResource("ParticleProcessMaterial_seyhr")
+texture = ExtResource("11_raso5")
+lifetime = 5.0
 
 [connection signal="start_move" from="MoleMovement" to="Feet" method="_on_mole_movement_start_move"]

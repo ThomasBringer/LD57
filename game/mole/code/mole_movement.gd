@@ -15,10 +15,12 @@ var color_dict = {}
 
 signal start_move(start: bool)
 
-const UNDERGROUND_COLOR: Color = '#73464c'
+const UNDERGROUND_COLOR: Color = '#4c2714'
 @onready var collision_shape_2d: CollisionShape2D = $"../CollisionShape2D"
 
 var is_underground: bool = false
+@onready var tunnel_particles: GPUParticles2D = $"../TunnelParticles"
+const TUNNEL_FORWARD: float = 50
 
 var moving: bool = false
 func set_moving(is_moving: bool) -> void:
@@ -27,6 +29,11 @@ func set_moving(is_moving: bool) -> void:
 	if is_moving != moving:
 		moving = is_moving
 		start_move.emit(is_moving)
+		if is_moving:
+			if is_underground:
+				tunnel_particles.emitting = true
+		else:
+			tunnel_particles.emitting = false
 
 func _ready() -> void:
 	for graphic in graphics:
@@ -40,6 +47,7 @@ func _process(delta: float) -> void:
 		pivot.rotation = input.angle()
 	if input.length_squared() > 1:
 		input = input.normalized()
+	tunnel_particles.position = TUNNEL_FORWARD * input
 	mole.velocity = input * speed
 	mole.move_and_slide()
 
@@ -59,7 +67,10 @@ func _unhandled_input(event: InputEvent) -> void:
 		recolor_underground()
 		speed = SPEED_UNDERGROUND
 		is_underground = true
+		if moving:
+			tunnel_particles.emitting = true
 	elif event.is_action_released("dig"):
+		tunnel_particles.emitting = false
 		recolor_default()
 		speed = SPEED
 		is_underground = false
