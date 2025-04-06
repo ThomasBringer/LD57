@@ -43,7 +43,7 @@ func _process(delta: float) -> void:
 	foot_13.position.x = STEP_DISTANCE * offset
 	foot_23.position.x = - STEP_DISTANCE * offset
 	
-func _on_mole_movement_start_move(start: bool) -> void:
+func _on_start_move(start: bool) -> void:
 	is_moving = start
 	if start:
 		time = 0.

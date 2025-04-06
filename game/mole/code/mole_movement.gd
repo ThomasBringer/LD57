@@ -90,7 +90,7 @@ func go_underground() -> void:
 	trying_aboveground = false
 	z.z_index = -10
 	attack.z_index = -200
-	mole.set_collision_mask_value(2, false)
+	set_mask(false)
 	recolor_underground()
 	speed = SPEED_UNDERGROUND
 	is_underground = true
@@ -112,8 +112,15 @@ func go_aboveground() -> void:
 	trying_aboveground = false
 	z.z_index = 150
 	attack.z_index = 0
-	mole.set_collision_mask_value(2, true)
+	set_mask(true)
 	tunnel_particles.emitting = false
 	recolor_default()
 	speed = SPEED
 	is_underground = false
+
+func set_mask(val: bool) -> void:
+	mole.set_collision_mask_value(2, val)
+	mole.set_collision_mask_value(4, val)
+	mole.set_collision_mask_value(5, val)
+	mole.set_collision_mask_value(6, val)
+	mole.set_collision_mask_value(7, val)

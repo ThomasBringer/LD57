@@ -1,5 +1,5 @@
 class_name Health
-extends StaticBody2D
+extends Node2D
 
 @export var health: int = 3
 signal on_die
@@ -13,17 +13,16 @@ func _ready() -> void:
 
 func damage() -> void:
 	health -= 1
-	if health <= 0:
-		die()
-	else:
-		flash_white()
-		flash_timer.start()
+	flash_white()
+	flash_timer.start()
 
 func die() -> void:
 	on_die.emit()
 	queue_free()
 
 func _on_flash_timeout() -> void:
+	if health <= 0:
+		die()
 	flash_color_back()
 
 #func flash_node(node: Node2D) -> void:
@@ -51,9 +50,11 @@ func flash_white() -> void:
 			ci.self_modulate = Color.WHITE
 	)
 
-func do_all_child_cis(node: Node2D, action) -> void:
+func do_all_child_cis(node: Node, action) -> void:
+	print("node  ",node.name)
 	if node is CanvasItem:
 		action.call(node)
+		#print("node ci ",node.name)
 	for child in node.get_children():
-		if child is Node2D:
+		if child is Node:
 			do_all_child_cis(child, action)
