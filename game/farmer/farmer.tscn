@@ -30,7 +30,7 @@ collision_layer = 32
 collision_mask = 175
 script = ExtResource("1_b73ww")
 
-[node name="FarmerMove" type="Node2D" parent="." node_paths=PackedStringArray("pivot_targets")]
+[node name="Move" type="Node2D" parent="." node_paths=PackedStringArray("pivot_targets")]
 script = ExtResource("2_tsccw")
 pivot_targets = [NodePath("../Points/Scaler/PivotTarget"), NodePath("../Points/Followers/Head/Scaler/HeadPivotTarget"), NodePath("../Visuals/Z/HeadTop/CircleHeadMask/Eye1Visual/Eye1Pivot"), NodePath("../Visuals/Z/HeadTop/CircleHeadMask/Eye2Visual/Eye2Pivot")]
 
@@ -46,9 +46,6 @@ script = ExtResource("4_nn0jm")
 [node name="RestTimer" type="Timer" parent="Feet"]
 wait_time = 0.25
 one_shot = true
-
-[node name="AudioStepTimer" type="Timer" parent="Feet"]
-wait_time = 0.25
 
 [node name="CollisionShape" type="CollisionShape2D" parent="."]
 shape = ExtResource("5_vba58")
@@ -365,5 +362,4 @@ stream = ExtResource("20_2wyhh")
 wait_time = 0.25
 one_shot = true
 
-[connection signal="start_move" from="FarmerMove" to="Feet" method="_on_start_move"]
-[connection signal="timeout" from="Feet/AudioStepTimer" to="Feet" method="_on_audio_step_timer_timeout"]
+[connection signal="start_move" from="Move" to="Feet" method="_on_start_move"]

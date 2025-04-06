@@ -10,7 +10,7 @@ var anim_i: int = 1
 
 const TOLERANCE: float = .3
 
-@onready var mole_movement: Node2D = $"../MoleMovement"
+@onready var mole_movement: Node2D = $"../Move"
 
 func is_pointing_front(pivot: Node2D) -> bool:
 	var dir = pivot.global_transform.x

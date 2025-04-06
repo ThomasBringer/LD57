@@ -467,7 +467,7 @@ stream_0/stream = ExtResource("23_fxec5")
 [node name="Mole" type="CharacterBody2D" groups=["character", "mole"]]
 collision_mask = 126
 
-[node name="MoleMovement" type="Node2D" parent="." node_paths=PackedStringArray("pivot_targets", "graphics")]
+[node name="Move" type="Node2D" parent="." node_paths=PackedStringArray("pivot_targets", "graphics")]
 script = ExtResource("1_hyo3r")
 pivot_targets = [NodePath("../Points/Scaler/PivotTarget"), NodePath("../Points/Followers/Head/Scaler/HeadPivotTarget"), NodePath("../Visuals/Z/HeadTop/CircleHeadMask/Eye1Visual/Eye1Pivot"), NodePath("../Visuals/Z/HeadTop/CircleHeadMask/Eye2Visual/Eye2Pivot"), NodePath("../Attack/AttackPivotTarget")]
 graphics = [NodePath("../Visuals/Z/Body"), NodePath("../Visuals/Z/Nose"), NodePath("../Visuals/Z/Nose/Nose2Visual"), NodePath("../Visuals/Z/HeadTop/CircleHeadMask/Eye1Visual"), NodePath("../Visuals/Z/HeadTop/CircleHeadMask/Eye1Visual/Eye1Pivot/Pupil1"), NodePath("../Visuals/Z/HeadTop/CircleHeadMask/Eye2Visual"), NodePath("../Visuals/Z/HeadTop/CircleHeadMask/Eye2Visual/Eye2Pivot/Pupil2"), NodePath("../Visuals/Z/Foot1"), NodePath("../Visuals/Z/Foot2"), NodePath("../Attack/AttackPivot/HandShovel/ShovelHandle"), NodePath("../Attack/AttackPivot/HandShovel/ShovelEnd")]
@@ -484,9 +484,6 @@ script = ExtResource("4_o2frt")
 [node name="RestTimer" type="Timer" parent="Feet"]
 wait_time = 0.25
 one_shot = true
-
-[node name="AudioStepTimer" type="Timer" parent="Feet"]
-wait_time = 0.25
 
 [node name="CollisionShape" type="CollisionShape2D" parent="."]
 shape = ExtResource("5_3cwe0")
@@ -862,7 +859,6 @@ volume_db = -5.0
 stream = SubResource("AudioStreamRandomizer_t2qgj")
 volume_db = 8.0
 
-[connection signal="start_move" from="MoleMovement" to="Feet" method="_on_start_move"]
-[connection signal="timeout" from="Feet/AudioStepTimer" to="Feet" method="_on_audio_step_timer_timeout"]
+[connection signal="start_move" from="Move" to="Feet" method="_on_start_move"]
 [connection signal="area_entered" from="Attack/AttackPivot/HandShovel/ShovelArea" to="Attack/AttackPivot/HandShovel/ShovelArea" method="_on_area_entered"]
 [connection signal="body_entered" from="Attack/AttackPivot/HandShovel/ShovelArea" to="Attack/AttackPivot/HandShovel/ShovelArea" method="_on_body_entered"]

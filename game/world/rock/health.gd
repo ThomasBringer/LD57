@@ -2,6 +2,7 @@ class_name Health
 extends Node2D
 
 @export var health: int = 3
+signal on_damage
 signal on_die
 @onready var flash_timer: Timer = $FlashTimer
 
@@ -12,6 +13,7 @@ func _ready() -> void:
 	save_colors()
 
 func damage() -> void:
+	on_damage.emit()
 	health -= 1
 	flash_white()
 	flash_timer.start()
@@ -51,10 +53,8 @@ func flash_white() -> void:
 	)
 
 func do_all_child_cis(node: Node, action) -> void:
-	print("node  ",node.name)
 	if node is CanvasItem:
 		action.call(node)
-		#print("node ci ",node.name)
 	for child in node.get_children():
 		if child is Node:
 			do_all_child_cis(child, action)
