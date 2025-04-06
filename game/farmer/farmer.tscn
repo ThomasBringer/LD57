@@ -1,7 +1,8 @@
-[gd_scene load_steps=21 format=3 uid="uid://deefmi1bkn3hf"]
+[gd_scene load_steps=22 format=3 uid="uid://deefmi1bkn3hf"]
 
 [ext_resource type="Script" path="res://world/rock/health.gd" id="1_b73ww"]
 [ext_resource type="Script" path="res://mole/code/z_ordering.gd" id="2_o5q74"]
+[ext_resource type="Script" path="res://farmer/code/farmer_move.gd" id="2_tsccw"]
 [ext_resource type="Script" path="res://mole/code/eye_pivots.gd" id="3_gq221"]
 [ext_resource type="Script" path="res://mole/code/feet.gd" id="4_nn0jm"]
 [ext_resource type="Shape2D" uid="uid://ck6a8i7d6dcmb" path="res://mole/mole_shape.tres" id="5_vba58"]
@@ -24,10 +25,14 @@
 _data = [Vector2(0, 0.75), 0.0, 0.25, 0, 1, Vector2(1, 1), 0.25, 0.0, 1, 0]
 point_count = 2
 
-[node name="Farmer" type="CharacterBody2D" groups=["character", "mole"]]
+[node name="Farmer" type="CharacterBody2D" groups=["character", "enemy"]]
 collision_layer = 32
 collision_mask = 175
 script = ExtResource("1_b73ww")
+
+[node name="FarmerMove" type="Node2D" parent="." node_paths=PackedStringArray("pivot_targets")]
+script = ExtResource("2_tsccw")
+pivot_targets = [NodePath("../Points/Scaler/PivotTarget"), NodePath("../Points/Followers/Head/Scaler/HeadPivotTarget"), NodePath("../Visuals/Z/HeadTop/CircleHeadMask/Eye1Visual/Eye1Pivot"), NodePath("../Visuals/Z/HeadTop/CircleHeadMask/Eye2Visual/Eye2Pivot")]
 
 [node name="ZOrdering" type="Node2D" parent="."]
 script = ExtResource("2_o5q74")
@@ -275,7 +280,7 @@ z_index = 2
 texture = ExtResource("10_71y1r")
 
 [node name="Eye1Visual" type="Sprite2D" parent="Visuals/Z/HeadTop/CircleHeadMask"]
-position = Vector2(19.2836, 63.2602)
+position = Vector2(19.2836, 3.26023)
 texture = ExtResource("11_ix7e3")
 
 [node name="Eye1Pivot" type="Node2D" parent="Visuals/Z/HeadTop/CircleHeadMask/Eye1Visual"]
@@ -287,7 +292,7 @@ position = Vector2(10, 0)
 texture = ExtResource("9_fxa47")
 
 [node name="Eye2Visual" type="Sprite2D" parent="Visuals/Z/HeadTop/CircleHeadMask"]
-position = Vector2(30, 50)
+position = Vector2(30, -10)
 texture = ExtResource("11_ix7e3")
 
 [node name="Eye2Pivot" type="Node2D" parent="Visuals/Z/HeadTop/CircleHeadMask/Eye2Visual"]
@@ -360,4 +365,5 @@ stream = ExtResource("20_2wyhh")
 wait_time = 0.25
 one_shot = true
 
+[connection signal="start_move" from="FarmerMove" to="Feet" method="_on_start_move"]
 [connection signal="timeout" from="Feet/AudioStepTimer" to="Feet" method="_on_audio_step_timer_timeout"]
