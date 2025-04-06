@@ -1,0 +1,114 @@
+[gd_scene load_steps=7 format=3 uid="uid://coj6ntmsgevji"]
+
+[ext_resource type="Texture2D" uid="uid://ottw2v3w13ng" path="res://circle_frame/circle_frame.svg" id="1_268og"]
+[ext_resource type="Script" path="res://circle_frame/circle_frame.gd" id="1_p5qdj"]
+[ext_resource type="PackedScene" uid="uid://d1mqdljt47141" path="res://circle_frame/frame_side_rect.tscn" id="3_yk0yq"]
+
+[sub_resource type="Animation" id="Animation_y76yn"]
+resource_name = "on"
+length = 6.0
+step = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CircleFrame:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2, 2.5, 3.5, 4, 5, 6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.1, 0.1), Vector2(0.1, 0.1), Vector2(1e-05, 1e-05), Vector2(1e-05, 1e-05), Vector2(0.1, 0.1), Vector2(0.1, 0.1), Vector2(1, 1)]
+}
+tracks/1/type = "animation"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("FrameSideRect/Anim")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"clips": PackedStringArray("on"),
+"times": PackedFloat32Array(0)
+}
+tracks/2/type = "animation"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("FrameSideRect2/Anim")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"clips": PackedStringArray("on"),
+"times": PackedFloat32Array(0)
+}
+tracks/3/type = "animation"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("FrameSideRect3/Anim")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"clips": PackedStringArray("on"),
+"times": PackedFloat32Array(0)
+}
+tracks/4/type = "animation"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("FrameSideRect4/Anim")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"clips": PackedStringArray("on"),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="Animation" id="Animation_lf6i1"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CircleFrame:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_b2mwc"]
+_data = {
+"RESET": SubResource("Animation_lf6i1"),
+"on": SubResource("Animation_y76yn")
+}
+
+[node name="CircleFrame" type="Node2D"]
+modulate = Color(1, 0, 0.266667, 1)
+z_index = 4096
+script = ExtResource("1_p5qdj")
+
+[node name="CircleFrame" type="Sprite2D" parent="."]
+texture = ExtResource("1_268og")
+
+[node name="Anim" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_b2mwc")
+}
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="FrameSideRect" parent="." instance=ExtResource("3_yk0yq")]
+
+[node name="FrameSideRect2" parent="." instance=ExtResource("3_yk0yq")]
+rotation = 1.5708
+
+[node name="FrameSideRect3" parent="." instance=ExtResource("3_yk0yq")]
+rotation = 3.14159
+
+[node name="FrameSideRect4" parent="." instance=ExtResource("3_yk0yq")]
+rotation = -1.5708
+
+[editable path="FrameSideRect"]
+[editable path="FrameSideRect2"]
+[editable path="FrameSideRect3"]
+[editable path="FrameSideRect4"]

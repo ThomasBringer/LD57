@@ -38,3 +38,9 @@ func enable_player_collision(val: bool) -> void:
 
 func _on_lifetime_timeout() -> void:
 	explode()
+
+static func clear_bullets() -> void:
+	for f in bullets:
+		if f and is_instance_valid(f):
+			f.queue_free()
+	bullets.clear()

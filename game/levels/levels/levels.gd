@@ -11,13 +11,21 @@ var next_spawn: Vector2
 
 var bridge
 
+@onready var circle_frame: Node2D = $"../Mole/CircleFrame"
+
+var spawned_levels: Array[Node2D]
+var level1: Node2D
+
 static var number_enemies: int = 0
 static var main: Levels
 
 func _ready() -> void:
 	main = self
-	var level1 = LEVEL1.instantiate()
+	level1 = LEVEL1.instantiate()
 	add_child(level1)
+	spawn_level2()
+
+func spawn_level2() -> void:
 	next_spawn = level1.get_next_spawn()
 	spawn_level()
 
@@ -33,6 +41,7 @@ func spawn_level() -> void:
 	var data: LevelGenData = datas[level_i]
 	number_enemies = data.num_enemies
 	var level = LEVEL.instantiate()
+	spawned_levels.append(level)
 	level.position = next_spawn
 	add_child(level)
 	bridge = level.gen(data)
@@ -47,8 +56,27 @@ static func enemy_die() -> void:
 
 static func game_over() -> void:
 	main.game_over_()
+	
+@onready var cover: ColorRect = $"../Mole/Camera2D/Cover"
+@onready var camera: Camera2D = $"../Mole/Camera2D"
 
 func game_over_() -> void:
 	var mole = get_tree().get_first_node_in_group("mole")
 	var mole_move = mole.get_node("Move")
 	mole_move.die()
+	circle_frame.play()
+	await get_tree().create_timer(3.1).timeout
+	cover.show()
+	camera.position_smoothing_enabled = false
+	FarmerMove.clear_enemies()
+	Bullet.clear_bullets()
+	for level in spawned_levels:
+		level.queue_free()
+	spawned_levels.clear()
+	mole.position = Vector2.ZERO
+	mole_move.revive()
+	spawn_level2()
+	await get_tree().create_timer(.8).timeout
+	camera.position_smoothing_enabled = true
+	cover.hide()
+	

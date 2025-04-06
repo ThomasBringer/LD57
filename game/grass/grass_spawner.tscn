@@ -6,7 +6,7 @@
 y_sort_enabled = true
 script = ExtResource("1_tifry")
 spawn_rect = NodePath("ReferenceRect")
-density100 = 1.25
+density100 = 1.1
 
 [node name="ReferenceRect" type="ReferenceRect" parent="."]
 offset_left = -120.0

@@ -140,6 +140,12 @@ func _process(delta: float) -> void:
 	farmer.velocity = input * actual_speed
 	farmer.move_and_slide()
 
+static func clear_enemies() -> void:
+	for f in farmers:
+		if f and is_instance_valid(f):
+			f.queue_free()
+	farmers.clear()
+
 static func enable_player_collision_all(val: bool) -> void:
 	for f in farmers:
 		if f and is_instance_valid(f):

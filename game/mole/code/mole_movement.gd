@@ -139,6 +139,12 @@ func set_mask(val: bool) -> void:
 var dead: bool = false
 
 func die() -> void:
+	set_moving(false)
 	recolor_dead()
 	dead = true
 	collision_shape.set_deferred("disabled", true)
+
+func revive() -> void:
+	recolor_default()
+	dead = false
+	collision_shape.set_deferred("disabled", false)

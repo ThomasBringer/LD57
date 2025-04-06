@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://0g3rdn4ty6qw"]
+[gd_scene load_steps=5 format=3 uid="uid://0g3rdn4ty6qw"]
 
 [ext_resource type="PackedScene" uid="uid://cup187fvw1yur" path="res://mole/mole.tscn" id="1_ga6f0"]
+[ext_resource type="PackedScene" uid="uid://coj6ntmsgevji" path="res://circle_frame/circle_frame.tscn" id="3_dyip0"]
 [ext_resource type="PackedScene" uid="uid://cmmb503p0e7oi" path="res://levels/levels/levels.tscn" id="3_xkglh"]
 [ext_resource type="PackedScene" uid="uid://qn5muita6ks" path="res://grass/grass_super_spawner.tscn" id="5_1epji"]
 
@@ -14,5 +15,16 @@ position_smoothing_enabled = true
 position_smoothing_speed = 4.0
 
 [node name="GrassSuperSpawner" parent="Mole/Camera2D" instance=ExtResource("5_1epji")]
+
+[node name="Cover" type="ColorRect" parent="Mole/Camera2D"]
+visible = false
+z_index = 4096
+offset_left = -1925.0
+offset_top = -1085.0
+offset_right = 1925.0
+offset_bottom = 1085.0
+color = Color(1, 0, 0.266667, 1)
+
+[node name="CircleFrame" parent="Mole" instance=ExtResource("3_dyip0")]
 
 [node name="Levels" parent="." instance=ExtResource("3_xkglh")]
