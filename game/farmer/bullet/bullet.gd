@@ -26,7 +26,7 @@ func _on_body_entered(body: Node2D) -> void:
 	explode()
 
 func game_over() -> void:
-	print("game over")
+	Levels.game_over()
 
 static func enable_player_collision_all(val: bool) -> void:
 	for b in bullets:

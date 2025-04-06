@@ -2,6 +2,7 @@ extends Node2D
 
 const SPEED: float = 1000
 const SPEED_UNDERGROUND: float = 1500
+@onready var collision_shape: CollisionShape2D = $"../CollisionShape"
 
 var speed: float = SPEED
 @onready var mole: CharacterBody2D = owner
@@ -18,7 +19,7 @@ var color_dict = {}
 signal start_move(start: bool)
 
 const UNDERGROUND_COLOR: Color = '#3e2731'
-@onready var collision_shape_2d: CollisionShape2D = $"../CollisionShape2D"
+const DEAD_COLOR: Color = '#ff0044'
 
 var is_underground: bool = false
 @onready var tunnel_particles: GPUParticles2D = $"../TunnelParticles"
@@ -52,6 +53,7 @@ func _ready() -> void:
 		color_dict[graphic] = graphic.self_modulate
 
 func _process(delta: float) -> void:
+	if dead: return
 	var input = Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	if is_underground:
 		set_moving(true)
@@ -80,8 +82,12 @@ func recolor(color: Color) -> void:
 
 func recolor_underground() -> void:
 	recolor(UNDERGROUND_COLOR)
+
+func recolor_dead() -> void:
+	recolor(DEAD_COLOR)
 	
 func _unhandled_input(event: InputEvent) -> void:
+	if dead: return
 	if event.is_action_pressed("dig"):
 		go_underground()
 	elif event.is_action_released("dig"):
@@ -129,3 +135,10 @@ func set_mask(val: bool) -> void:
 	mole.set_collision_mask_value(7, val)
 	FarmerMove.enable_player_collision_all(val)
 	Bullet.enable_player_collision_all(val)
+
+var dead: bool = false
+
+func die() -> void:
+	recolor_dead()
+	dead = true
+	collision_shape.set_deferred("disabled", true)

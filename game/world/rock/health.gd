@@ -20,6 +20,11 @@ func damage() -> void:
 
 func die() -> void:
 	on_die.emit()
+	hide()
+	#if self is CharacterBody2D:
+	self.set_deferred("collision_layer", 0)
+	self.set_deferred("collision_mask", 0)
+	await get_tree().create_timer(3.0).timeout
 	queue_free()
 
 func _on_flash_timeout() -> void:
@@ -58,7 +63,3 @@ func do_all_child_cis(node: Node, action) -> void:
 	for child in node.get_children():
 		if child is Node:
 			do_all_child_cis(child, action)
-
-
-func _on_switch_direction_timeout() -> void:
-	pass # Replace with function body.

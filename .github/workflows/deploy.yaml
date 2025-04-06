@@ -40,6 +40,6 @@ jobs:
         env:
           BUTLER_CREDENTIALS: ${{ secrets.BUTLER_API_KEY }}
           CHANNEL: html
-          ITCH_GAME: ld57
+          ITCH_GAME: holy-moly
           ITCH_USER: thomas-bringer
           PACKAGE: ./exports/html

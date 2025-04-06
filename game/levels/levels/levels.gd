@@ -44,3 +44,11 @@ static func enemy_die() -> void:
 	if number_enemies <= 0:
 		main.bridge.open_door()
 		main.try_spawn_level()
+
+static func game_over() -> void:
+	main.game_over_()
+
+func game_over_() -> void:
+	var mole = get_tree().get_first_node_in_group("mole")
+	var mole_move = mole.get_node("Move")
+	mole_move.die()
