@@ -95,6 +95,8 @@ attack={
 2d_physics/layer_7="Bullet"
 2d_physics/layer_8="Shovel"
 2d_physics/layer_9="Grass"
+2d_physics/layer_10="Trigger"
+2d_physics/layer_11="Bridge"
 
 [rendering]
 

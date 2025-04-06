@@ -2,12 +2,14 @@ extends Node2D
 
 @export var data: LevelGenData
 
-@onready var collision_polygon_water_left: CollisionPolygon2D = $WaterLeft/CollisionPolygon2D
-@onready var collision_polygon_water_right: CollisionPolygon2D = $WaterRight/CollisionPolygon2D
+@onready var base: Node2D = $Base
+@onready var collision_polygon_water_left: CollisionPolygon2D = $Base/WaterLeft/CollisionPolygon2D
+@onready var collision_polygon_water_right: CollisionPolygon2D = $Base/WaterRight/CollisionPolygon2D
 
-@onready var polygon_ground: Polygon2D = $PolygonGround
+@onready var polygon_ground: Polygon2D = $Base/PolygonGround
 const BRIDGE_WIDTH: int = 1500
 const BRIDGE_DEPTH: int = 2000
+const BRIDGE = preload("res://levels/bridge/bridge.tscn")
 
 func _ready() -> void:
 	gen()
@@ -66,3 +68,9 @@ func gen() -> void:
 	polygon_ground.polygon = points_visual
 	collision_polygon_water_left.polygon = points_water_left
 	collision_polygon_water_right.polygon = points_water_right
+	base.position.y = - points_visual[0].y
+	
+	var bridge = BRIDGE.instantiate()
+	bridge.position.x = 0
+	bridge.position.y = points_water_right[0].y - points_visual[0].y - BRIDGE_DEPTH * .5
+	add_child(bridge)

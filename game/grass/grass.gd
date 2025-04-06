@@ -8,13 +8,21 @@ const SKEW_SPEED: float = 5
 @onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
 @onready var destroy_timer: Timer = $DestroyTimer
 
+func check_area_bridge() -> void:
+	var areas: Array[Area2D] = get_overlapping_areas()
+	for area in areas:
+		if area.is_in_group("bridge"):
+			queue_free()
+
 func _ready() -> void:
+	check_area_bridge()
 	var bodies: Array[Node2D] = get_overlapping_bodies()
 	for body in bodies:
 		if not body.is_in_group("character"):
 			queue_free()
 
 func _process(delta: float) -> void:
+	check_area_bridge()
 	var bodies: Array[Node2D] = get_overlapping_bodies()
 	var target_skew = 0
 	if bodies:
@@ -72,6 +80,5 @@ func _on_area_entered(area: Area2D) -> void:
 	if area.is_in_group("underground"):
 		annihilate()
 
-
 func _on_destroy_timer_timeout() -> void:
-	queue_free
+	queue_free()

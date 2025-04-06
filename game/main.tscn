@@ -9,10 +9,12 @@
 script = ExtResource("4_yph45")
 semi_sides = 6
 map_size = 5000.0
+num_enemies = 3
 
 [node name="Main" type="Node2D"]
 
 [node name="Mole" parent="." instance=ExtResource("1_ga6f0")]
+collision_mask = 638
 
 [node name="Camera2D" type="Camera2D" parent="Mole"]
 position_smoothing_enabled = true
