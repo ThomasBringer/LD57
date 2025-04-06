@@ -30,6 +30,7 @@ func spawn_level2() -> void:
 	spawn_level()
 
 func try_spawn_level() -> void:
+	if dead: return
 	if level_i < datas.size():
 		spawn_level()
 	else:
@@ -59,8 +60,10 @@ static func game_over() -> void:
 	
 @onready var cover: ColorRect = $"../Mole/Camera2D/Cover"
 @onready var camera: Camera2D = $"../Mole/Camera2D"
+var dead: bool = false
 
 func game_over_() -> void:
+	dead = true
 	level_i = 0
 	var mole = get_tree().get_first_node_in_group("mole")
 	var mole_move = mole.get_node("Move")
@@ -76,6 +79,8 @@ func game_over_() -> void:
 	spawned_levels.clear()
 	mole.position = Vector2.ZERO
 	mole_move.revive()
+	dead = false
+	level_i = 0
 	spawn_level2()
 	await get_tree().create_timer(.8).timeout
 	camera.position_smoothing_enabled = true

@@ -55,7 +55,7 @@ func gen(data: LevelGenData) -> Node2D:
 			var point2 = point + BRIDGE_DEPTH * Vector2.UP
 			points_water_left.append(point2)
 			edge_left.add_point(point2)
-			var point3 = point2 + data.map_size * Vector2.LEFT
+			var point3 = point2 + 10000 * Vector2.LEFT
 			points_water_left.append(point3)
 			var point4 = Vector2(point3.x, points_visual[0].y)
 			points_water_left.append(point4)
@@ -69,7 +69,7 @@ func gen(data: LevelGenData) -> Node2D:
 			points_visual.append(point)
 			points_water_right.append(point)
 			edge_right.add_point(point)
-			var point2 = Vector2(data.map_size, point.y)
+			var point2 = Vector2(10000, point.y)
 			points_water_right.append(point2)
 			var point3 = Vector2(point2.x, points_water_right[0].y - BRIDGE_DEPTH)
 			points_water_right.append(point3)
@@ -78,7 +78,7 @@ func gen(data: LevelGenData) -> Node2D:
 			edge_right.points[0] = point4
 		else:
 			var rand_angle = TAU * randf()
-			var rand_distance = side_length * randf()
+			var rand_distance = .75 * side_length * randf()
 			var rand_vector = rand_distance * Vector2.DOWN.rotated(rand_angle)
 			point += rand_vector
 			points_visual.append(point)
@@ -107,6 +107,13 @@ func gen(data: LevelGenData) -> Node2D:
 		var farmer = FARMER.instantiate()
 		farmer.position = pos
 		base.add_child(farmer)
+	
+	for prop in data.props:
+		pos = choose_farmer_pos(data, spawned_pos)
+		spawned_pos.append(pos)
+		var instance = prop.instantiate()
+		instance.position = pos
+		base.add_child(instance)
 	
 	return bridge
 

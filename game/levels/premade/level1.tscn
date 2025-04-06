@@ -60,6 +60,7 @@ position = Vector2(591, -1788)
 texture = ExtResource("6_j7vgj")
 
 [node name="Wall" parent="." instance=ExtResource("7_puwo3")]
+position = Vector2(-1664, -2430)
 
 [node name="Fence" type="StaticBody2D" parent="."]
 position = Vector2(-804, -4236)

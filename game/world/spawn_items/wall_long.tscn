@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://bqkvrfc8swp7p"]
+
+[ext_resource type="Texture2D" uid="uid://del6vbqoy1vlj" path="res://world/art/wall.svg" id="1_f6cql"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tklaa"]
+size = Vector2(4000, 450)
+
+[node name="Wall" type="StaticBody2D"]
+collision_layer = 2
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_left = -2000.0
+offset_top = -225.0
+offset_right = 2000.0
+offset_bottom = 225.0
+texture = ExtResource("1_f6cql")
+stretch_mode = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_tklaa")

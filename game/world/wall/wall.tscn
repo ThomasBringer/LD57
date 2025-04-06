@@ -2,19 +2,19 @@
 
 [ext_resource type="Texture2D" uid="uid://del6vbqoy1vlj" path="res://world/art/wall.svg" id="1_ijyrf"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_xn3pg"]
-size = Vector2(4500, 450)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q25gf"]
+size = Vector2(4000, 450)
 
 [node name="Wall" type="StaticBody2D"]
-position = Vector2(-2294, -2403)
+position = Vector2(-2000, -225)
 collision_layer = 2
 
 [node name="TextureRect" type="TextureRect" parent="."]
-offset_right = 4678.0
+offset_right = 4000.0
 offset_bottom = 450.0
 texture = ExtResource("1_ijyrf")
 stretch_mode = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(2250, 225)
-shape = SubResource("RectangleShape2D_xn3pg")
+position = Vector2(2000, 225)
+shape = SubResource("RectangleShape2D_q25gf")
