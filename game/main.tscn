@@ -1,15 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://0g3rdn4ty6qw"]
+[gd_scene load_steps=4 format=3 uid="uid://0g3rdn4ty6qw"]
 
 [ext_resource type="PackedScene" uid="uid://cup187fvw1yur" path="res://mole/mole.tscn" id="1_ga6f0"]
-[ext_resource type="PackedScene" uid="uid://c3j5mrsqd7dx4" path="res://levels/level/level.tscn" id="3_of3pw"]
-[ext_resource type="Script" path="res://levels/level/level_gen_data.gd" id="4_yph45"]
+[ext_resource type="PackedScene" uid="uid://cmmb503p0e7oi" path="res://levels/levels/levels.tscn" id="3_xkglh"]
 [ext_resource type="PackedScene" uid="uid://qn5muita6ks" path="res://grass/grass_super_spawner.tscn" id="5_1epji"]
-
-[sub_resource type="Resource" id="Resource_lu343"]
-script = ExtResource("4_yph45")
-semi_sides = 6
-map_size = 5000.0
-num_enemies = 3
 
 [node name="Main" type="Node2D"]
 
@@ -22,5 +15,4 @@ position_smoothing_speed = 4.0
 
 [node name="GrassSuperSpawner" parent="Mole/Camera2D" instance=ExtResource("5_1epji")]
 
-[node name="Level" parent="." instance=ExtResource("3_of3pw")]
-data = SubResource("Resource_lu343")
+[node name="Levels" parent="." instance=ExtResource("3_xkglh")]

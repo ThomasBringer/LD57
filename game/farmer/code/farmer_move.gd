@@ -34,6 +34,7 @@ var ready_to_shoot: bool = false
 @onready var gun: Node2D = $"../Attack/AttackPivot/Gun"
 
 func _ready() -> void:
+	shoot_timer.wait_time = 1. + 2. * randf()
 	farmers.append(self)
 
 var moving: bool = false
@@ -49,24 +50,31 @@ func brain() -> void:
 		mole = get_tree().get_first_node_in_group("mole")
 	if not mole_move:
 		mole_move = mole.get_node("Move")
-	var diff: Vector2 = (mole.position - farmer.position)
+	
+	var diff: Vector2 = (mole.global_position - farmer.global_position)
 	var diff_norm: Vector2 = diff.normalized()
 	var dist = diff.length()
 
 	if mole_move.is_underground:
-		moving_sideways = false
+		bend_head_vert(0)
 		ready_to_shoot = false
-		if DIST_TO_MOLE_SIGHT < dist:
-			speed = 0
-			input = Vector2.ZERO
-			bend_head_vert(0)
-			bend_head(0)
-		else:
-			speed = RUN_SPEED
-			input = -diff_norm
-			face(-diff)
-			bend_head_vert(15)
-			bend_head(50)
+		speed = 0
+		input = Vector2.ZERO
+		bend_head(0)
+		moving_sideways = false
+		#moving_sideways = false
+		#ready_to_shoot = false
+		#if DIST_TO_MOLE_SIGHT < dist:
+			#speed = 0
+			#input = Vector2.ZERO
+			#bend_head_vert(0)
+			#bend_head(0)
+		#else:
+			#speed = RUN_SPEED
+			#input = -diff_norm
+			#face(-diff)
+			#bend_head_vert(15)
+			#bend_head(50)
 	else:
 		bend_head_vert(0)
 		if DIST_TO_MOLE_SIGHT < dist:
@@ -146,6 +154,7 @@ func _on_switch_direction_timeout() -> void:
 	start_switch_timer()
 
 func _on_shoot_timer_timeout() -> void:
+	shoot_timer.wait_time = 1. + 2. * randf()
 	if ready_to_shoot:
 		gun.shoot()
 	else:
