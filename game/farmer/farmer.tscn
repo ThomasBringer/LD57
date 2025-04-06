@@ -412,6 +412,7 @@ wait_time = 2.0
 stream = SubResource("AudioStreamRandomizer_vipuo")
 volume_db = 10.0
 
+[connection signal="on_die" from="." to="Move" method="_on_farmer_on_die"]
 [connection signal="start_move" from="Move" to="Feet" method="_on_start_move"]
 [connection signal="timeout" from="SwitchDirection" to="Move" method="_on_switch_direction_timeout"]
 [connection signal="timeout" from="ShootTimer" to="Move" method="_on_shoot_timer_timeout"]

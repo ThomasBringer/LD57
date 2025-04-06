@@ -1,3 +1,4 @@
+class_name Levels
 extends Node2D
 
 const LEVEL1 = preload("res://levels/premade/level1.tscn")
@@ -8,7 +9,13 @@ const LEVEL_FINAL = preload("res://levels/premade/level1.tscn")
 var level_i: int = 0
 var next_spawn: Vector2
 
+var bridge
+
+static var number_enemies: int = 0
+static var main: Levels
+
 func _ready() -> void:
+	main = self
 	var level1 = LEVEL1.instantiate()
 	add_child(level1)
 	next_spawn = level1.get_next_spawn()
@@ -24,9 +31,16 @@ func try_spawn_level() -> void:
 
 func spawn_level() -> void:
 	var data: LevelGenData = datas[level_i]
+	number_enemies = data.num_enemies
 	var level = LEVEL.instantiate()
 	level.position = next_spawn
 	add_child(level)
-	level.gen(data)
+	bridge = level.gen(data)
 	level_i += 1
 	next_spawn = level.get_next_spawn()
+
+static func enemy_die() -> void:
+	number_enemies -= 1
+	if number_enemies <= 0:
+		main.bridge.open_door()
+		main.try_spawn_level()

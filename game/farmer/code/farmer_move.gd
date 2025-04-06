@@ -34,7 +34,7 @@ var ready_to_shoot: bool = false
 @onready var gun: Node2D = $"../Attack/AttackPivot/Gun"
 
 func _ready() -> void:
-	shoot_timer.wait_time = 1. + 2. * randf()
+	randomize_shooter_time()
 	farmers.append(self)
 
 var moving: bool = false
@@ -154,8 +154,14 @@ func _on_switch_direction_timeout() -> void:
 	start_switch_timer()
 
 func _on_shoot_timer_timeout() -> void:
-	shoot_timer.wait_time = 1. + 2. * randf()
+	randomize_shooter_time()
 	if ready_to_shoot:
 		gun.shoot()
 	else:
 		shoot_timer.stop()
+
+func randomize_shooter_time() -> void:
+	shoot_timer.wait_time = 2. + 2.5 * randf()
+
+func _on_farmer_on_die() -> void:
+	Levels.enemy_die()

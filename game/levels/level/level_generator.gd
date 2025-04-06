@@ -19,7 +19,7 @@ const MIN_SQR_DIST_BTWN_ENEMIES: int = 40000
 #func _ready() -> void:
 	#gen()
 
-func gen(data: LevelGenData) -> void:
+func gen(data: LevelGenData) -> Node2D:
 	base = $Base
 	collision_polygon_water_left = $Base/WaterLeft/CollisionPolygon2D
 	collision_polygon_water_right = $Base/WaterRight/CollisionPolygon2D
@@ -107,6 +107,8 @@ func gen(data: LevelGenData) -> void:
 		var farmer = FARMER.instantiate()
 		farmer.position = pos
 		base.add_child(farmer)
+	
+	return bridge
 
 func random_farmer_pos(data: LevelGenData) -> Vector2:
 	return data.map_size * .25 * randf() * Vector2.DOWN.rotated(TAU * randf())

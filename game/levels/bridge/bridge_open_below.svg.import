@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://f2sxabw2y33a"
-path="res://.godot/imported/bridge_ground.svg-ffd7269e3dd7b62e46db054b9eace748.ctex"
+uid="uid://o1e51scb308s"
+path="res://.godot/imported/bridge_open_below.svg-076e085d1e4c81da0d933102948b5f34.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://levels/bridge/bridge_ground.svg"
-dest_files=["res://.godot/imported/bridge_ground.svg-ffd7269e3dd7b62e46db054b9eace748.ctex"]
+source_file="res://levels/bridge/bridge_open_below.svg"
+dest_files=["res://.godot/imported/bridge_open_below.svg-076e085d1e4c81da0d933102948b5f34.ctex"]
 
 [params]
 
