@@ -1,5 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://0g3rdn4ty6qw"]
+[gd_scene load_steps=7 format=3 uid="uid://0g3rdn4ty6qw"]
 
+[ext_resource type="Script" path="res://misc/recenter.gd" id="1_f5aqi"]
 [ext_resource type="PackedScene" uid="uid://cup187fvw1yur" path="res://mole/mole.tscn" id="1_ga6f0"]
 [ext_resource type="PackedScene" uid="uid://hdgug401q12k" path="res://world/wall/wall.tscn" id="2_8tayu"]
 [ext_resource type="PackedScene" uid="uid://bms5g4bovbhjq" path="res://world/water/water.tscn" id="3_i5iys"]
@@ -8,26 +9,30 @@
 
 [node name="Main" type="Node2D"]
 
-[node name="Mole" parent="." instance=ExtResource("1_ga6f0")]
+[node name="Recenter" type="Node2D" parent="." node_paths=PackedStringArray("player")]
+script = ExtResource("1_f5aqi")
+player = NodePath("Mole")
 
-[node name="Camera2D" type="Camera2D" parent="Mole"]
+[node name="Mole" parent="Recenter" instance=ExtResource("1_ga6f0")]
+
+[node name="Camera2D" type="Camera2D" parent="Recenter/Mole"]
 position_smoothing_enabled = true
 position_smoothing_speed = 4.0
 
-[node name="GrassSuperSpawner" parent="Mole/Camera2D" instance=ExtResource("5_1epji")]
+[node name="GrassSuperSpawner" parent="Recenter/Mole/Camera2D" instance=ExtResource("5_1epji")]
 
-[node name="Wall" parent="." instance=ExtResource("2_8tayu")]
+[node name="Wall" parent="Recenter" instance=ExtResource("2_8tayu")]
 
-[node name="CollisionPolygon2D" parent="Wall" index="0"]
+[node name="CollisionPolygon2D" parent="Recenter/Wall" index="0"]
 polygon = PackedVector2Array(812, -675, 631, -400, 618, 144, 1019, 721, 457, 641, 467, -405, 554, -753, 654, -841)
 
-[node name="Water" parent="." instance=ExtResource("3_i5iys")]
+[node name="Water" parent="Recenter" instance=ExtResource("3_i5iys")]
 
-[node name="CollisionPolygon2D" parent="Water" index="0"]
+[node name="CollisionPolygon2D" parent="Recenter/Water" index="0"]
 polygon = PackedVector2Array(-1280, -140, -610, -280, -413, 216, -1083, 241)
 
-[node name="Rock" parent="." instance=ExtResource("4_4co0l")]
+[node name="Rock" parent="Recenter" instance=ExtResource("4_4co0l")]
 position = Vector2(-537, 468)
 
-[editable path="Wall"]
-[editable path="Water"]
+[editable path="Recenter/Wall"]
+[editable path="Recenter/Water"]
