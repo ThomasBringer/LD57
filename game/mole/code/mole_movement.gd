@@ -139,6 +139,8 @@ func set_mask(val: bool) -> void:
 var dead: bool = false
 
 func die() -> void:
+	if is_underground:
+		go_aboveground()
 	set_moving(false)
 	recolor_dead()
 	dead = true

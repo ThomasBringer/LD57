@@ -6,6 +6,8 @@ const TOLERANCE: float = .1
 
 const BULLET = preload("res://farmer/bullet/Bullet.tscn")
 
+@onready var move: FarmerMove = $"../../../Move"
+
 @export var number_bullet_per_shot: int = 3
 @export var spread_degrees: float = 30
 @onready var bullet_spawn: Node2D = $"../BulletSpawn"
@@ -37,6 +39,8 @@ func _process(delta: float) -> void:
 	order()
 
 func shoot():
+	if move.dead:
+		return
 	audio_gun.play()
 	var dir = global_transform.x
 	dir = dir.rotated(deg_to_rad(- spread_degrees * (number_bullet_per_shot - 1) * .5))

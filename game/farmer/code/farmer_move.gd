@@ -130,6 +130,8 @@ func face(dir: Vector2) -> void:
 		pivot.rotation = dir.angle()
 		
 func _process(delta: float) -> void:
+	if dead:
+		return
 	brain()
 	set_moving(input.length_squared())
 	
@@ -170,6 +172,9 @@ func _on_shoot_timer_timeout() -> void:
 func randomize_shooter_time() -> void:
 	shoot_timer.wait_time = 2. + 2.5 * randf()
 
+var dead: bool = false
+
 func _on_farmer_on_die() -> void:
+	dead = true
 	z.hide()
 	Levels.enemy_die()
