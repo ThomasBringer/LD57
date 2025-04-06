@@ -15,6 +15,8 @@ func check_area_bridge() -> void:
 			queue_free()
 
 func _ready() -> void:
+	if randi_range(0, 1):
+		sprite.flip_h = true
 	check_area_bridge()
 	var bodies: Array[Node2D] = get_overlapping_bodies()
 	for body in bodies:

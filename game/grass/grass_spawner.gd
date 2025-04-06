@@ -4,7 +4,7 @@ extends Node2D
 const GRASS_BLADE = preload("res://grass/grass_blade.tscn")
 @onready var spawned_grass: Node = $SpawnedGrass
 
-@export var density100: float = 1.5
+@export var density100: float = 1
 
 var blades: Array[Node2D] = []
 
