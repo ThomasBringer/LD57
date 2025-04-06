@@ -362,4 +362,8 @@ stream = ExtResource("20_2wyhh")
 wait_time = 0.25
 one_shot = true
 
+[node name="SwitchDirection" type="Timer" parent="."]
+one_shot = true
+
 [connection signal="start_move" from="Move" to="Feet" method="_on_start_move"]
+[connection signal="timeout" from="SwitchDirection" to="Move" method="_on_switch_direction_timeout"]

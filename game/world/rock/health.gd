@@ -58,3 +58,7 @@ func do_all_child_cis(node: Node, action) -> void:
 	for child in node.get_children():
 		if child is Node:
 			do_all_child_cis(child, action)
+
+
+func _on_switch_direction_timeout() -> void:
+	pass # Replace with function body.

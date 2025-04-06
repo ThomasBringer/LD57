@@ -7,68 +7,114 @@ extends Node2D
 @onready var offset_head: Node2D = $"../Points/Scaler/PivotTarget/OffsetHead"
 @onready var head: Node2D = $"../Points/Followers/Head"
 @onready var mole: CharacterBody2D = get_tree().get_first_node_in_group("mole")
+@onready var mole_move: Node2D = get_tree().get_first_node_in_group("mole").get_node("Move")
 
 signal start_move(start: bool)
 
 static var farmers: Array[FarmerMove] = []
 
-var speed: float
+var last_speed: float = 0.
+var speed: float = 0.
+var actual_speed: float = 0.
+var input: Vector2 = Vector2.ZERO
 const SLOW_SPEED: float = 250
 const SPEED: float = 400
-const RUN_SPEED: float = 800
-const DIST_TO_MOLE_SIGHT = 1000
-const DIST_TO_MOLE_TARGET = 750
-const DIST_TO_MOLE_MIN = 500
+const BACK_SPEED: float = 600
+const RUN_SPEED: float = 1000
+const DIST_TO_MOLE_SIGHT = 1500
+const DIST_TO_MOLE_TARGET = 850
+const DIST_TO_MOLE_MIN = 650
+
+var moving_sideways: bool = false
+var sideways_direction: int = 1
+@onready var switch_timer: Timer = $"../SwitchDirection"
 
 func _ready() -> void:
 	farmers.append(self)
 
 var moving: bool = false
 func set_moving(is_moving: bool) -> void:
-	offset_head.position.x = 25 if is_moving else 0
-	head.position.y = -50
+	#offset_head.position.x = 25 if is_moving else 0
+	#head.position.y = -50
 	if is_moving != moving:
 		moving = is_moving
 		start_move.emit(is_moving)
 
-func brain() -> Vector2:
+func brain() -> void:
 	if not mole:
 		mole = get_tree().get_first_node_in_group("mole")
+	if not mole_move:
+		mole_move = mole.get_node("Move")
 	var diff: Vector2 = (mole.position - farmer.position)
 	var diff_norm: Vector2 = diff.normalized()
 	var dist = diff.length()
-	var input: Vector2 = Vector2.ZERO
-	if DIST_TO_MOLE_SIGHT < dist:
-		pass
-	elif DIST_TO_MOLE_TARGET < dist:
-		speed = SPEED
-		input = diff_norm * SPEED
-		face(diff)
-	elif DIST_TO_MOLE_MIN < dist:
-		speed = SLOW_SPEED
-		input = diff_norm.orthogonal() * SLOW_SPEED
-		face(diff)
+
+	if mole_move.is_underground:
+		moving_sideways = false
+		if DIST_TO_MOLE_SIGHT < dist:
+			speed = 0
+			input = Vector2.ZERO
+			bend_head_vert(0)
+			bend_head(0)
+		else:
+			speed = RUN_SPEED
+			input = -diff_norm
+			face(-diff)
+			bend_head_vert(15)
+			bend_head(50)
 	else:
-		speed = SPEED
-		input = -diff_norm * SPEED
-		face(diff)
-	return input
+		bend_head_vert(0)
+		if DIST_TO_MOLE_SIGHT < dist:
+			speed = 0
+			input = Vector2.ZERO
+			bend_head(0)
+			moving_sideways = false
+		elif DIST_TO_MOLE_TARGET < dist:
+			speed = SPEED
+			input = diff_norm
+			face(diff)
+			bend_head(25)
+			moving_sideways = false
+		elif DIST_TO_MOLE_MIN < dist:
+			if not moving_sideways and switch_timer.is_stopped():
+				sideways_direction = 2 * randi_range(0, 1) - 1
+				start_switch_timer()
+			speed = SLOW_SPEED
+			input = sideways_direction * diff_norm.orthogonal()
+			face(diff)
+			bend_head(0)
+			moving_sideways = true
+		else:
+			speed = BACK_SPEED
+			input = -diff_norm
+			face(diff)
+			bend_head(-25)
+			moving_sideways = false
+
+func start_switch_timer() -> void:
+	switch_timer.wait_time = 1. + 4. * randf()
+	switch_timer.start()
+
+func bend_head(x: float) -> void:
+	offset_head.position.x = x
+
+func bend_head_vert(y: float) -> void:
+	head.position.y = y - 50
 
 func face(dir: Vector2) -> void:
 	for pivot in pivot_targets:
 		pivot.rotation = dir.angle()
 		
 func _process(delta: float) -> void:
-	var input = brain()
+	brain()
 	set_moving(input.length_squared())
-	#if input:
-		#if input.length_squared() > 1:
-			#input = input.normalized()
-	#if not input: return
-	#if input:
-		#for pivot in pivot_targets:
-			#pivot.rotation = input.angle()
-	farmer.velocity = input
+	
+	var xx: float = delta * .75
+	var blend: float = 1. - pow(.5, xx)
+	actual_speed = lerp(last_speed, speed, blend)
+	
+	last_speed = actual_speed
+	farmer.velocity = input * actual_speed
 	farmer.move_and_slide()
 
 static func enable_player_collision_all(val: bool) -> void:
@@ -78,3 +124,9 @@ static func enable_player_collision_all(val: bool) -> void:
 
 func enable_player_collision(val: bool) -> void:
 	farmer.set_collision_mask_value(1, val)
+
+
+func _on_switch_direction_timeout() -> void:
+	if not moving_sideways: return
+	sideways_direction = - sideways_direction
+	start_switch_timer()
