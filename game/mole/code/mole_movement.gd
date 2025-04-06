@@ -53,7 +53,10 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	var input = Input.get_vector("move_left", "move_right", "move_up", "move_down")
-	set_moving(input.length_squared())
+	if is_underground:
+		set_moving(true)
+	else:
+		set_moving(input.length_squared())
 	if input:
 		if input.length_squared() > 1:
 			input = input.normalized()
