@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://deefmi1bkn3hf"]
+[gd_scene load_steps=25 format=3 uid="uid://deefmi1bkn3hf"]
 
 [ext_resource type="Script" path="res://world/rock/health.gd" id="1_b73ww"]
 [ext_resource type="Script" path="res://mole/code/z_ordering.gd" id="2_o5q74"]
@@ -20,6 +20,9 @@
 [ext_resource type="Texture2D" uid="uid://pcvvba85fyja" path="res://farmer/art/belt.svg" id="16_1ax2r"]
 [ext_resource type="Texture2D" uid="uid://brkifb5piav5a" path="res://farmer/art/hat.svg" id="17_bsfna"]
 [ext_resource type="AudioStream" uid="uid://ucyk05pojhgg" path="res://mole/audio/steps/step.tres" id="20_2wyhh"]
+[ext_resource type="Script" path="res://farmer/code/gun.gd" id="21_uasd7"]
+[ext_resource type="Texture2D" uid="uid://ctnxsg5rf2fvs" path="res://farmer/art/shotgun/shotgun_butt.svg" id="22_liket"]
+[ext_resource type="Texture2D" uid="uid://djm88th0anyfi" path="res://farmer/art/shotgun/shotgun_gun.svg" id="23_4up4j"]
 
 [sub_resource type="Curve" id="Curve_srp8i"]
 _data = [Vector2(0, 0.75), 0.0, 0.25, 0, 1, Vector2(1, 1), 0.25, 0.0, 1, 0]
@@ -32,7 +35,7 @@ script = ExtResource("1_b73ww")
 
 [node name="Move" type="Node2D" parent="." node_paths=PackedStringArray("pivot_targets")]
 script = ExtResource("2_tsccw")
-pivot_targets = [NodePath("../Points/Scaler/PivotTarget"), NodePath("../Points/Followers/Head/Scaler/HeadPivotTarget"), NodePath("../Visuals/Z/HeadTop/CircleHeadMask/Eye1Visual/Eye1Pivot"), NodePath("../Visuals/Z/HeadTop/CircleHeadMask/Eye2Visual/Eye2Pivot")]
+pivot_targets = [NodePath("../Points/Scaler/PivotTarget"), NodePath("../Points/Followers/Head/Scaler/HeadPivotTarget"), NodePath("../Visuals/Z/HeadTop/CircleHeadMask/Eye1Visual/Eye1Pivot"), NodePath("../Visuals/Z/HeadTop/CircleHeadMask/Eye2Visual/Eye2Pivot"), NodePath("../Attack/AttackPivotTarget")]
 
 [node name="ZOrdering" type="Node2D" parent="."]
 script = ExtResource("2_o5q74")
@@ -364,6 +367,33 @@ one_shot = true
 
 [node name="SwitchDirection" type="Timer" parent="."]
 one_shot = true
+
+[node name="Attack" type="Node2D" parent="."]
+
+[node name="AttackPivotTarget" type="Node2D" parent="Attack"]
+
+[node name="AttackPivot" type="Node2D" parent="Attack" node_paths=PackedStringArray("target")]
+script = ExtResource("6_kns8i")
+speed_degrees = 720.0
+target = NodePath("../AttackPivotTarget")
+
+[node name="Gun" type="Node2D" parent="Attack/AttackPivot"]
+position = Vector2(30, 0)
+script = ExtResource("21_uasd7")
+
+[node name="WeaponZ" type="Node2D" parent="Attack/AttackPivot/Gun"]
+z_index = 155
+
+[node name="Shotgun" type="Node2D" parent="Attack/AttackPivot/Gun/WeaponZ"]
+position = Vector2(25, 10)
+
+[node name="ShotgunButt" type="Sprite2D" parent="Attack/AttackPivot/Gun/WeaponZ/Shotgun"]
+self_modulate = Color(0.745098, 0.290196, 0.184314, 1)
+texture = ExtResource("22_liket")
+
+[node name="ShotgunGun" type="Sprite2D" parent="Attack/AttackPivot/Gun/WeaponZ/Shotgun"]
+self_modulate = Color(0.752941, 0.796078, 0.862745, 1)
+texture = ExtResource("23_4up4j")
 
 [connection signal="start_move" from="Move" to="Feet" method="_on_start_move"]
 [connection signal="timeout" from="SwitchDirection" to="Move" method="_on_switch_direction_timeout"]
