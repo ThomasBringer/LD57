@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://cfsfhmg6h4qqs"]
+
+[ext_resource type="Texture2D" uid="uid://d0o2w35ws3kyg" path="res://world/art/fence.svg" id="1_72vfo"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hirjj"]
+size = Vector2(6000, 350)
+
+[node name="Fence" type="StaticBody2D"]
+collision_layer = 2
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_left = -3000.0
+offset_top = -150.0
+offset_right = 3000.0
+offset_bottom = 200.0
+texture = ExtResource("1_72vfo")
+stretch_mode = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 25)
+shape = SubResource("RectangleShape2D_hirjj")

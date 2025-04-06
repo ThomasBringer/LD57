@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://dnkpnrwbtyw03"]
+[gd_scene load_steps=10 format=3 uid="uid://dnkpnrwbtyw03"]
 
 [ext_resource type="Script" path="res://levels/premade/level1.gd" id="1_e68if"]
 [ext_resource type="PackedScene" uid="uid://bms5g4bovbhjq" path="res://world/water/water.tscn" id="2_23i70"]
 [ext_resource type="Texture2D" uid="uid://bjtf15xxvv3oe" path="res://misc/edge_h.svg" id="3_4pf1d"]
 [ext_resource type="PackedScene" uid="uid://blhb1t1oodrrl" path="res://world/rock/rock_sprite.tscn" id="4_6j1q2"]
 [ext_resource type="Texture2D" uid="uid://bj3fggurae7f6" path="res://world/art/sign_thanks.svg" id="5_3cyec"]
+[ext_resource type="PackedScene" uid="uid://ba12htd7sggmi" path="res://world/rock/tree.tscn" id="7_26w52"]
 [ext_resource type="Texture2D" uid="uid://d0o2w35ws3kyg" path="res://world/art/fence.svg" id="8_28dpu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wglrb"]
@@ -69,6 +70,12 @@ stretch_mode = 1
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Fence"]
 position = Vector2(871, 176)
 shape = SubResource("RectangleShape2D_24tp5")
+
+[node name="Tree" parent="." instance=ExtResource("7_26w52")]
+position = Vector2(-1135, -2544)
+
+[node name="Tree2" parent="." instance=ExtResource("7_26w52")]
+position = Vector2(990, -2587)
 
 [editable path="Base/WaterLeft"]
 [editable path="Base/WaterRight"]

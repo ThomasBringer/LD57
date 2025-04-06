@@ -848,9 +848,11 @@ stream = ExtResource("19_oikan")
 
 [node name="AudioGoUnderground" type="AudioStreamPlayer" parent="."]
 stream = SubResource("AudioStreamRandomizer_wlxx7")
+volume_db = -5.0
 
 [node name="AudioDigging" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("21_de2r1")
+volume_db = -5.0
 
 [node name="AudioSwoosh" type="AudioStreamPlayer" parent="."]
 volume_db = -5.0

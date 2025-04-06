@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://ba12htd7sggmi"]
+
+[ext_resource type="PackedScene" uid="uid://blhb1t1oodrrl" path="res://world/rock/rock_sprite.tscn" id="1_n6m8w"]
+[ext_resource type="Texture2D" uid="uid://sdco0il2yqml" path="res://world/art/tree.svg" id="2_pd5jq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x6bdp"]
+size = Vector2(200, 900)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_adwr5"]
+radius = 450.0
+
+[node name="Tree" instance=ExtResource("1_n6m8w")]
+
+[node name="Sprite" parent="." index="1"]
+texture = ExtResource("2_pd5jq")
+
+[node name="CollisionShape2D" parent="." index="2"]
+position = Vector2(0, 325.5)
+shape = SubResource("RectangleShape2D_x6bdp")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="." index="3"]
+position = Vector2(0, -350)
+shape = SubResource("CircleShape2D_adwr5")
