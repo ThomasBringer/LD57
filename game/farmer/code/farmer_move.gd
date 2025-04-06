@@ -32,6 +32,7 @@ var sideways_direction: int = 1
 @onready var shoot_timer: Timer = $"../ShootTimer"
 var ready_to_shoot: bool = false
 @onready var gun: Node2D = $"../Attack/AttackPivot/Gun"
+@onready var z: Node2D = $"../Visuals/Z"
 
 func _ready() -> void:
 	randomize_shooter_time()
@@ -170,4 +171,5 @@ func randomize_shooter_time() -> void:
 	shoot_timer.wait_time = 2. + 2.5 * randf()
 
 func _on_farmer_on_die() -> void:
+	z.hide()
 	Levels.enemy_die()

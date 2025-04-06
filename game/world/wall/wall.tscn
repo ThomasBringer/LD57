@@ -1,14 +1,20 @@
-[gd_scene load_steps=2 format=3 uid="uid://hdgug401q12k"]
+[gd_scene load_steps=3 format=3 uid="uid://w68cw67qbtvy"]
 
-[ext_resource type="Script" path="res://misc/show_polygon.gd" id="1_w03i7"]
+[ext_resource type="Texture2D" uid="uid://del6vbqoy1vlj" path="res://world/art/wall.svg" id="1_ijyrf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xn3pg"]
+size = Vector2(4500, 450)
 
 [node name="Wall" type="StaticBody2D"]
+position = Vector2(-2294, -2403)
 collision_layer = 2
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-polygon = PackedVector2Array(0, 0, 500, 0, 0, 500)
-script = ExtResource("1_w03i7")
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_right = 4678.0
+offset_bottom = 450.0
+texture = ExtResource("1_ijyrf")
+stretch_mode = 1
 
-[node name="Polygon2D" type="Polygon2D" parent="CollisionPolygon2D"]
-self_modulate = Color(0.227451, 0.266667, 0.4, 1)
-polygon = PackedVector2Array(0, 0, 100, 0, 0, 100)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(2250, 225)
+shape = SubResource("RectangleShape2D_xn3pg")

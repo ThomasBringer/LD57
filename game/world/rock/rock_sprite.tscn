@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://blhb1t1oodrrl"]
+
+[ext_resource type="Script" path="res://world/rock/health.gd" id="1_uvs83"]
+[ext_resource type="Texture2D" uid="uid://4h168wmlfrxk" path="res://world/art/sign_arrows.svg" id="2_tofd2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ljpnv"]
+size = Vector2(300, 200)
+
+[node name="Rock" type="StaticBody2D"]
+collision_layer = 8
+collision_mask = 129
+script = ExtResource("1_uvs83")
+next_frame_for_flash = true
+
+[node name="FlashTimer" type="Timer" parent="."]
+wait_time = 0.25
+one_shot = true
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_tofd2")
+hframes = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+z_index = -200
+position = Vector2(0, -25)
+shape = SubResource("RectangleShape2D_ljpnv")

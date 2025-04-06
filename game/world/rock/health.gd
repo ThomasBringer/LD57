@@ -5,6 +5,8 @@ extends Node2D
 signal on_damage
 signal on_die
 @onready var flash_timer: Timer = $FlashTimer
+@export var next_frame_for_flash: bool = false
+var sprite: Sprite2D
 
 var saved_colors_dict = {}
 
@@ -40,22 +42,31 @@ func _on_flash_timeout() -> void:
 		#flash_node(child)
 
 func save_colors() -> void:
-	do_all_child_cis(self,
-		func(ci: CanvasItem):
-			saved_colors_dict[ci] = ci.self_modulate
-	)
+	if next_frame_for_flash:
+		sprite = $Sprite
+	else:
+		do_all_child_cis(self,
+			func(ci: CanvasItem):
+				saved_colors_dict[ci] = ci.self_modulate
+		)
 
 func flash_color_back() -> void:
-	do_all_child_cis(self,
-		func(ci: CanvasItem):
-			ci.self_modulate = saved_colors_dict[ci]
-	)
+	if next_frame_for_flash:
+		sprite.frame = 0
+	else:
+		do_all_child_cis(self,
+			func(ci: CanvasItem):
+				ci.self_modulate = saved_colors_dict[ci]
+		)
 
 func flash_white() -> void:
-	do_all_child_cis(self,
-		func(ci: CanvasItem):
-			ci.self_modulate = Color.WHITE
-	)
+	if next_frame_for_flash:
+		sprite.frame = 1
+	else:
+		do_all_child_cis(self,
+			func(ci: CanvasItem):
+				ci.self_modulate = Color.WHITE
+		)
 
 func do_all_child_cis(node: Node, action) -> void:
 	if node is CanvasItem:
