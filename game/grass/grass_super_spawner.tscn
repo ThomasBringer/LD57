@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://qn5muita6ks"]
+
+[ext_resource type="Script" path="res://grass/grass_super_spawner.gd" id="1_0h22x"]
+
+[node name="GrassSuperSpawner" type="Node2D"]
+script = ExtResource("1_0h22x")
+
+[node name="Chunks" type="Node" parent="."]

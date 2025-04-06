@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://btntnhqu4vr6q"]
+
+[ext_resource type="PackedScene" uid="uid://brib4hisckue7" path="res://grass/grass_blade.tscn" id="1_fuj8s"]
+
+[node name="GrassBladeEnabler" type="Node2D"]
+
+[node name="GrassBlade" parent="." instance=ExtResource("1_fuj8s")]
+
+[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="."]
+rect = Rect2(-35, -162, 70, 175)
+enable_node_path = NodePath("../GrassBlade")

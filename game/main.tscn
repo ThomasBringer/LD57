@@ -4,13 +4,17 @@
 [ext_resource type="PackedScene" uid="uid://hdgug401q12k" path="res://world/wall/wall.tscn" id="2_8tayu"]
 [ext_resource type="PackedScene" uid="uid://bms5g4bovbhjq" path="res://world/water/water.tscn" id="3_i5iys"]
 [ext_resource type="PackedScene" uid="uid://44pt0alt0s7a" path="res://world/rock/rock.tscn" id="4_4co0l"]
-[ext_resource type="PackedScene" uid="uid://c0hag4uj74vjj" path="res://grass/grass_spawner.tscn" id="5_ovvt5"]
+[ext_resource type="PackedScene" uid="uid://qn5muita6ks" path="res://grass/grass_super_spawner.tscn" id="5_1epji"]
 
 [node name="Main" type="Node2D"]
 
-[node name="Camera2D" type="Camera2D" parent="."]
-
 [node name="Mole" parent="." instance=ExtResource("1_ga6f0")]
+
+[node name="Camera2D" type="Camera2D" parent="Mole"]
+position_smoothing_enabled = true
+position_smoothing_speed = 4.0
+
+[node name="GrassSuperSpawner" parent="Mole/Camera2D" instance=ExtResource("5_1epji")]
 
 [node name="Wall" parent="." instance=ExtResource("2_8tayu")]
 
@@ -24,15 +28,6 @@ polygon = PackedVector2Array(-1280, -140, -610, -280, -413, 216, -1083, 241)
 
 [node name="Rock" parent="." instance=ExtResource("4_4co0l")]
 position = Vector2(-537, 468)
-
-[node name="GrassSpawner" parent="." node_paths=PackedStringArray("spawn_rect") instance=ExtResource("5_ovvt5")]
-spawn_rect = NodePath("ReferenceRect")
-
-[node name="ReferenceRect" type="ReferenceRect" parent="GrassSpawner"]
-offset_left = -1484.0
-offset_top = -780.0
-offset_right = 1516.0
-offset_bottom = 1220.0
 
 [editable path="Wall"]
 [editable path="Water"]
