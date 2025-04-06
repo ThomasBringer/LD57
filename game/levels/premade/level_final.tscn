@@ -1,0 +1,75 @@
+[gd_scene load_steps=9 format=3 uid="uid://dnkpnrwbtyw03"]
+
+[ext_resource type="Script" path="res://levels/premade/level1.gd" id="1_e68if"]
+[ext_resource type="PackedScene" uid="uid://bms5g4bovbhjq" path="res://world/water/water.tscn" id="2_23i70"]
+[ext_resource type="Texture2D" uid="uid://bjtf15xxvv3oe" path="res://misc/edge_h.svg" id="3_4pf1d"]
+[ext_resource type="PackedScene" uid="uid://blhb1t1oodrrl" path="res://world/rock/rock_sprite.tscn" id="4_6j1q2"]
+[ext_resource type="Texture2D" uid="uid://bj3fggurae7f6" path="res://world/art/sign_thanks.svg" id="5_3cyec"]
+[ext_resource type="Texture2D" uid="uid://d0o2w35ws3kyg" path="res://world/art/fence.svg" id="8_28dpu"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wglrb"]
+size = Vector2(1200, 600)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_24tp5"]
+size = Vector2(1742, 352)
+
+[node name="LevelFinal" type="Node2D"]
+script = ExtResource("1_e68if")
+
+[node name="Base" type="Node2D" parent="."]
+
+[node name="WaterLeft" parent="Base" instance=ExtResource("2_23i70")]
+
+[node name="CollisionPolygon2D" parent="Base/WaterLeft" index="0"]
+polygon = PackedVector2Array(-777, -27, -7223, 289, -7400, -9377, 1399, -9458, 506, -6251, -449, -5624, -820, -5182, -919, -4270, -791, -3714, -641, -3467, -727, -3329, -1226, -3282, -1785, -3282, -1966, -2797, -2027, -2071, -1663, -1779, -1153, -941)
+
+[node name="WaterRight" parent="Base" instance=ExtResource("2_23i70")]
+
+[node name="CollisionPolygon2D" parent="Base/WaterRight" index="0"]
+polygon = PackedVector2Array(7323, 214, 7242, -9422, 314, -9473, 217, -6160, 934, -6054, 1406, -5848, 1626, -4967, 1648, -4245, 1444, -3804, 1054, -3348, 1482, -2919, 1981, -2340, 1387, -1882, 1064, -1342, 769, -674, 671, 32)
+
+[node name="PolygonGround" type="Polygon2D" parent="Base"]
+self_modulate = Color(0.243137, 0.537255, 0.282353, 1)
+z_index = -4000
+polygon = PackedVector2Array(-750, 0, 750, 0, 983, -1294, 1979, -2310, 1065, -3300, 1818, -4360, 1410, -5907, 20, -6134, -802, -5154, -1023, -4349, -520, -3294, -1882, -3224, -1996, -2157, -1244, -1344)
+
+[node name="Edge" type="Line2D" parent="Base"]
+self_modulate = Color(0.14902, 0.360784, 0.258824, 1)
+z_index = 4000
+position = Vector2(-25, 1041)
+points = PackedVector2Array(780, -1044, 1034, -2390, 2025, -3444, 1227, -4246, 1827, -5444, 1408, -6938, 331.104, -7156.39, -800, -6366, -1004, -5383, -594, -4429, -1855, -4250, -2017, -3172, -1279, -2422, -793, -1043)
+width = 500.0
+texture = ExtResource("3_4pf1d")
+texture_mode = 1
+antialiased = true
+
+[node name="NextLevelSpawn" type="Node2D" parent="."]
+position = Vector2(0, -4000)
+
+[node name="Rock3" parent="." instance=ExtResource("4_6j1q2")]
+position = Vector2(448, -4563)
+
+[node name="Sprite" parent="Rock3" index="1"]
+texture = ExtResource("5_3cyec")
+
+[node name="CollisionShape2D" parent="Rock3" index="2"]
+position = Vector2(0, -45)
+shape = SubResource("RectangleShape2D_wglrb")
+
+[node name="Fence" type="StaticBody2D" parent="."]
+position = Vector2(-518, -3533)
+collision_layer = 2
+
+[node name="TextureRect" type="TextureRect" parent="Fence"]
+offset_right = 1575.06
+offset_bottom = 350.0
+texture = ExtResource("8_28dpu")
+stretch_mode = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Fence"]
+position = Vector2(871, 176)
+shape = SubResource("RectangleShape2D_24tp5")
+
+[editable path="Base/WaterLeft"]
+[editable path="Base/WaterRight"]
+[editable path="Rock3"]

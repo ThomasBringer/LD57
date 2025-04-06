@@ -78,7 +78,7 @@ func gen(data: LevelGenData) -> Node2D:
 			edge_right.points[0] = point4
 		else:
 			var rand_angle = TAU * randf()
-			var rand_distance = side_length * .4 * randf()
+			var rand_distance = side_length * randf()
 			var rand_vector = rand_distance * Vector2.DOWN.rotated(rand_angle)
 			point += rand_vector
 			points_visual.append(point)
@@ -111,7 +111,7 @@ func gen(data: LevelGenData) -> Node2D:
 	return bridge
 
 func random_farmer_pos(data: LevelGenData) -> Vector2:
-	return data.map_size * .25 * randf() * Vector2.DOWN.rotated(TAU * randf())
+	return data.map_size * .4 * randf() * Vector2.DOWN.rotated(TAU * randf())
 
 func choose_farmer_pos(data: LevelGenData, spawned_pos: Array[Vector2]) -> Vector2:
 	var pos: Vector2 = random_farmer_pos(data)

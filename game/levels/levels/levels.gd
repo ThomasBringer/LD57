@@ -3,7 +3,7 @@ extends Node2D
 
 const LEVEL1 = preload("res://levels/premade/level1.tscn")
 const LEVEL = preload("res://levels/level/level.tscn")
-const LEVEL_FINAL = preload("res://levels/premade/level1.tscn")
+const LEVEL_FINAL = preload("res://levels/premade/level_final.tscn")
 
 @export var datas: Array[LevelGenData]
 var level_i: int = 0
