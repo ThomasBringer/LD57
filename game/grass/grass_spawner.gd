@@ -8,14 +8,13 @@ const GRASS_BLADE = preload("res://grass/grass_blade.tscn")
 
 var blades: Array[Node2D] = []
 
-static var count: int = 0
-
 func _ready() -> void:
-	count += 1
-	print("number of chunks ", count)
 	spawn()
 
 func respawn() -> void:
+	for blade in blades:
+		if blade and is_instance_valid(blade):
+			blade.queue_free()
 	blades.clear()
 	spawn()
 

@@ -19,7 +19,7 @@ position_smoothing_speed = 4.0
 [node name="Wall" parent="." instance=ExtResource("2_8tayu")]
 
 [node name="CollisionPolygon2D" parent="Wall" index="0"]
-polygon = PackedVector2Array(812, -675, 631, -400, 618, 144, 1019, 721, 457, 641, 467, -405, 59, -808, 654, -841)
+polygon = PackedVector2Array(812, -675, 631, -400, 618, 144, 1019, 721, 457, 641, 467, -405, 554, -753, 654, -841)
 
 [node name="Water" parent="." instance=ExtResource("3_i5iys")]
 
