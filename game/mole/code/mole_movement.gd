@@ -28,6 +28,10 @@ const TUNNEL_FORWARD: float = 50
 var trying_aboveground: bool = false
 #@onready var area_destroy_grass: Area2D = $"../AreaDestroyGrass"
 @onready var area_destroy_grass_collsion: CollisionShape2D = $"../AreaDestroyGrass/CollisionShape2D"
+@onready var audio_go_underground: AudioStreamPlayer = $"../AudioGoUnderground"
+@onready var audio_digging: AudioStreamPlayer = $"../AudioDigging"
+
+var last_nonzero_input: Vector2 = Vector2.RIGHT
 
 var moving: bool = false
 func set_moving(is_moving: bool) -> void:
@@ -36,11 +40,11 @@ func set_moving(is_moving: bool) -> void:
 	if is_moving != moving:
 		moving = is_moving
 		start_move.emit(is_moving)
-		if is_moving:
-			if is_underground:
-				tunnel_particles.emitting = true
-		else:
-			tunnel_particles.emitting = false
+		#if is_moving:
+			#if is_underground:
+				#tunnel_particles.emitting = true
+		#else:
+			#tunnel_particles.emitting = false
 
 func _ready() -> void:
 	area_destroy_grass_collsion.set_deferred("disabled", true)
@@ -50,13 +54,17 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	var input = Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	set_moving(input.length_squared())
-	if not input: return
+	if input:
+		if input.length_squared() > 1:
+			input = input.normalized()
+		last_nonzero_input = input
+	if not is_underground and not input: return
+	if is_underground:
+		last_nonzero_input = last_nonzero_input.normalized()
 	for pivot in pivot_targets:
-		pivot.rotation = input.angle()
-	if input.length_squared() > 1:
-		input = input.normalized()
-	tunnel_particles.position = TUNNEL_FORWARD * input
-	mole.velocity = input * speed
+		pivot.rotation = last_nonzero_input.angle()
+	tunnel_particles.position = TUNNEL_FORWARD * last_nonzero_input
+	mole.velocity = last_nonzero_input * speed
 	mole.move_and_slide()
 
 func recolor_default() -> void:
@@ -77,6 +85,8 @@ func _unhandled_input(event: InputEvent) -> void:
 		try_go_aboveground()
 
 func go_underground() -> void:
+	audio_digging.play()
+	audio_go_underground.play()
 	trying_aboveground = false
 	z.z_index = -10
 	attack.z_index = -200
@@ -96,6 +106,8 @@ func try_go_aboveground() -> void:
 		go_aboveground()
 
 func go_aboveground() -> void:
+	audio_digging.stop()
+	audio_go_underground.play()
 	area_destroy_grass_collsion.set_deferred("disabled", true)
 	trying_aboveground = false
 	z.z_index = 150

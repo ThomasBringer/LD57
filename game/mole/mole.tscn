@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://cup187fvw1yur"]
+[gd_scene load_steps=40 format=3 uid="uid://cup187fvw1yur"]
 
 [ext_resource type="Texture2D" uid="uid://dodsg4ccahpi7" path="res://mole/art/circle15.svg" id="1_20w2l"]
 [ext_resource type="Script" path="res://procedural_anim/link/link.gd" id="1_37vlg"]
@@ -18,6 +18,11 @@
 [ext_resource type="Texture2D" uid="uid://bg31f63so51ku" path="res://mole/art/shovel_end.svg" id="15_imrhw"]
 [ext_resource type="Script" path="res://procedural_anim/b_spline/b_spline.gd" id="16_bt32w"]
 [ext_resource type="Script" path="res://mole/code/shovel_area.gd" id="16_y7fdw"]
+[ext_resource type="AudioStream" uid="uid://b7uwl7dfyvfxg" path="res://mole/audio/swoosh.tres" id="17_mgl0y"]
+[ext_resource type="AudioStream" uid="uid://ucyk05pojhgg" path="res://mole/audio/steps/step.tres" id="19_oikan"]
+[ext_resource type="AudioStream" uid="uid://d3futc8gw8wgf" path="res://mole/audio/go_underground.mp3" id="20_hfb0b"]
+[ext_resource type="AudioStream" uid="uid://dxt2ovi1b3j7u" path="res://mole/audio/digging_loop.mp3" id="21_de2r1"]
+[ext_resource type="AudioStream" uid="uid://6v4nha8njiye" path="res://mole/audio/sword_swing.mp3" id="23_fxec5"]
 
 [sub_resource type="Curve" id="Curve_k3ojm"]
 _data = [Vector2(0, 1), 0.0, -0.2, 0, 1, Vector2(1, 0.8), -0.2, 0.0, 1, 0]
@@ -248,6 +253,21 @@ tracks/5/keys = {
 "method": &"end_attack"
 }]
 }
+tracks/6/type = "audio"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("../AudioSwoosh")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("17_mgl0y")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/6/use_blend = true
 
 [sub_resource type="Animation" id="Animation_hoaee"]
 resource_name = "attack"
@@ -406,6 +426,21 @@ tracks/5/keys = {
 "method": &"end_attack"
 }]
 }
+tracks/6/type = "audio"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("../AudioSwoosh")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("17_mgl0y")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/6/use_blend = true
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_sybnc"]
 _data = {
@@ -419,6 +454,18 @@ _data = [Vector2(0, 0), 0.0, 1.0, 0, 1, Vector2(1, 1), 1.0, 0.0, 1, 0]
 point_count = 2
 
 [sub_resource type="Curve2D" id="Curve2D_d6kej"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_wlxx7"]
+random_pitch = 1.25
+random_volume_offset_db = 3.0
+streams_count = 1
+stream_0/stream = ExtResource("20_hfb0b")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_t2qgj"]
+random_pitch = 1.25
+random_volume_offset_db = 3.0
+streams_count = 1
+stream_0/stream = ExtResource("23_fxec5")
 
 [node name="Mole" type="CharacterBody2D" groups=["character", "mole"]]
 collision_mask = 382
@@ -440,6 +487,9 @@ script = ExtResource("4_o2frt")
 [node name="RestTimer" type="Timer" parent="Feet"]
 wait_time = 0.25
 one_shot = true
+
+[node name="AudioStepTimer" type="Timer" parent="Feet"]
+wait_time = 0.25
 
 [node name="CollisionShape" type="CollisionShape2D" parent="."]
 shape = ExtResource("5_3cwe0")
@@ -799,6 +849,23 @@ curve = SubResource("Curve2D_d6kej")
 script = ExtResource("16_bt32w")
 line = NodePath("../SlashLine")
 
+[node name="AudioSteps" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("19_oikan")
+
+[node name="AudioGoUnderground" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamRandomizer_wlxx7")
+
+[node name="AudioDigging" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("21_de2r1")
+
+[node name="AudioSwoosh" type="AudioStreamPlayer" parent="."]
+volume_db = -5.0
+
+[node name="AudioSwordSwing" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamRandomizer_t2qgj")
+volume_db = 8.0
+
 [connection signal="start_move" from="MoleMovement" to="Feet" method="_on_mole_movement_start_move"]
+[connection signal="timeout" from="Feet/AudioStepTimer" to="Feet" method="_on_audio_step_timer_timeout"]
 [connection signal="area_entered" from="Attack/AttackPivot/HandShovel/ShovelArea" to="Attack/AttackPivot/HandShovel/ShovelArea" method="_on_area_entered"]
 [connection signal="body_entered" from="Attack/AttackPivot/HandShovel/ShovelArea" to="Attack/AttackPivot/HandShovel/ShovelArea" method="_on_body_entered"]

@@ -4,6 +4,9 @@ const TARGET_SKEW: float = 40
 const SKEW_SPEED: float = 5
 @onready var skewer: Node2D = $Skewer
 @onready var sprite: Sprite2D = $Skewer/Sprite
+#@onready var audio_sword_swing: AudioStreamPlayer = $AudioSwordSwing
+@onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
+@onready var destroy_timer: Timer = $DestroyTimer
 
 func _ready() -> void:
 	var bodies: Array[Node2D] = get_overlapping_bodies()
@@ -54,7 +57,10 @@ func damage() -> void:
 	cut()
 
 func cut() -> void:
-	queue_free()
+	#audio_sword_swing.play()
+	hide()
+	collision_shape_2d.set_deferred("disabled", true)
+	destroy_timer.start()
 
 func annihilate() -> void:
 	queue_free()
@@ -65,3 +71,7 @@ func _on_body_entered(body: Node2D) -> void:
 func _on_area_entered(area: Area2D) -> void:
 	if area.is_in_group("underground"):
 		annihilate()
+
+
+func _on_destroy_timer_timeout() -> void:
+	queue_free

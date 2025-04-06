@@ -1,0 +1,9 @@
+[gd_resource type="AudioStreamRandomizer" load_steps=2 format=3 uid="uid://b7uwl7dfyvfxg"]
+
+[ext_resource type="AudioStream" uid="uid://c38b3h4r5lwko" path="res://mole/audio/swoosh.mp3" id="1_0m1sg"]
+
+[resource]
+random_pitch = 1.25
+random_volume_offset_db = 3.0
+streams_count = 1
+stream_0/stream = ExtResource("1_0m1sg")

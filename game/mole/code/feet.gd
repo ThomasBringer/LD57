@@ -20,6 +20,9 @@ var is_moving: bool = false
 var foot_sine: float = 0.
 var end_foot_sine: float = 0.
 
+@onready var audio_steps: AudioStreamPlayer = $"../AudioSteps"
+@onready var audio_step_timer: Timer = $AudioStepTimer
+
 func _ready() -> void:
 	process_mode = pivot.process_mode + 1
 	loop_pulsation = TAU / LOOP_TIME
@@ -44,6 +47,12 @@ func _on_mole_movement_start_move(start: bool) -> void:
 	is_moving = start
 	if start:
 		time = 0.
+		audio_step_timer.start()
+		audio_steps.play()
 	else:
+		audio_step_timer.stop()
 		end_foot_sine = foot_sine
 		rest_timer.start()
+
+func _on_audio_step_timer_timeout() -> void:
+	audio_steps.play()
