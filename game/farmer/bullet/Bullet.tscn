@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://d26x2hfpqdn6o"]
+
+[ext_resource type="Texture2D" uid="uid://bvoyrlryyjbgw" path="res://farmer/bullet/bullet.svg" id="1_blj3d"]
+[ext_resource type="Script" path="res://farmer/bullet/bullet.gd" id="1_or1sm"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xkkf6"]
+radius = 30.0
+height = 140.0
+
+[node name="Bullet" type="Area2D"]
+z_index = 1000
+collision_layer = 64
+collision_mask = 395
+script = ExtResource("1_or1sm")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+position = Vector2(10, 0)
+texture = ExtResource("1_blj3d")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_xkkf6")
+
+[node name="Lifetime" type="Timer" parent="."]
+wait_time = 15.0
+one_shot = true
+autostart = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="Lifetime" to="." method="_on_lifetime_timeout"]

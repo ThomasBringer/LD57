@@ -29,6 +29,10 @@ var moving_sideways: bool = false
 var sideways_direction: int = 1
 @onready var switch_timer: Timer = $"../SwitchDirection"
 
+@onready var shoot_timer: Timer = $"../ShootTimer"
+var ready_to_shoot: bool = false
+@onready var gun: Node2D = $"../Attack/AttackPivot/Gun"
+
 func _ready() -> void:
 	farmers.append(self)
 
@@ -51,6 +55,7 @@ func brain() -> void:
 
 	if mole_move.is_underground:
 		moving_sideways = false
+		ready_to_shoot = false
 		if DIST_TO_MOLE_SIGHT < dist:
 			speed = 0
 			input = Vector2.ZERO
@@ -65,17 +70,24 @@ func brain() -> void:
 	else:
 		bend_head_vert(0)
 		if DIST_TO_MOLE_SIGHT < dist:
+			ready_to_shoot = false
 			speed = 0
 			input = Vector2.ZERO
 			bend_head(0)
 			moving_sideways = false
 		elif DIST_TO_MOLE_TARGET < dist:
+			if not ready_to_shoot and shoot_timer.is_stopped():
+				shoot_timer.start()
+			ready_to_shoot = true
 			speed = SPEED
 			input = diff_norm
 			face(diff)
 			bend_head(25)
 			moving_sideways = false
 		elif DIST_TO_MOLE_MIN < dist:
+			if not ready_to_shoot and shoot_timer.is_stopped():
+				shoot_timer.start()
+			ready_to_shoot = true
 			if not moving_sideways and switch_timer.is_stopped():
 				sideways_direction = 2 * randi_range(0, 1) - 1
 				start_switch_timer()
@@ -85,6 +97,9 @@ func brain() -> void:
 			bend_head(0)
 			moving_sideways = true
 		else:
+			if not ready_to_shoot and shoot_timer.is_stopped():
+				shoot_timer.start()
+			ready_to_shoot = true
 			speed = BACK_SPEED
 			input = -diff_norm
 			face(diff)
@@ -125,8 +140,13 @@ static func enable_player_collision_all(val: bool) -> void:
 func enable_player_collision(val: bool) -> void:
 	farmer.set_collision_mask_value(1, val)
 
-
 func _on_switch_direction_timeout() -> void:
 	if not moving_sideways: return
 	sideways_direction = - sideways_direction
 	start_switch_timer()
+
+func _on_shoot_timer_timeout() -> void:
+	if ready_to_shoot:
+		gun.shoot()
+	else:
+		shoot_timer.stop()

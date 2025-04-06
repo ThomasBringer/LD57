@@ -128,3 +128,4 @@ func set_mask(val: bool) -> void:
 	mole.set_collision_mask_value(6, val)
 	mole.set_collision_mask_value(7, val)
 	FarmerMove.enable_player_collision_all(val)
+	Bullet.enable_player_collision_all(val)

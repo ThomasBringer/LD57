@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://deefmi1bkn3hf"]
+[gd_scene load_steps=27 format=3 uid="uid://deefmi1bkn3hf"]
 
 [ext_resource type="Script" path="res://world/rock/health.gd" id="1_b73ww"]
 [ext_resource type="Script" path="res://mole/code/z_ordering.gd" id="2_o5q74"]
@@ -23,10 +23,17 @@
 [ext_resource type="Script" path="res://farmer/code/gun.gd" id="21_uasd7"]
 [ext_resource type="Texture2D" uid="uid://ctnxsg5rf2fvs" path="res://farmer/art/shotgun/shotgun_butt.svg" id="22_liket"]
 [ext_resource type="Texture2D" uid="uid://djm88th0anyfi" path="res://farmer/art/shotgun/shotgun_gun.svg" id="23_4up4j"]
+[ext_resource type="AudioStream" uid="uid://yr6hq2ns8pco" path="res://farmer/audio/shotgun.mp3" id="24_d3226"]
 
 [sub_resource type="Curve" id="Curve_srp8i"]
 _data = [Vector2(0, 0.75), 0.0, 0.25, 0, 1, Vector2(1, 1), 0.25, 0.0, 1, 0]
 point_count = 2
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_vipuo"]
+random_pitch = 1.25
+random_volume_offset_db = 3.0
+streams_count = 1
+stream_0/stream = ExtResource("24_d3226")
 
 [node name="Farmer" type="CharacterBody2D" groups=["character", "enemy"]]
 collision_layer = 32
@@ -395,5 +402,16 @@ texture = ExtResource("22_liket")
 self_modulate = Color(0.752941, 0.796078, 0.862745, 1)
 texture = ExtResource("23_4up4j")
 
+[node name="BulletSpawn" type="Node2D" parent="Attack/AttackPivot"]
+position = Vector2(135, -7.5)
+
+[node name="ShootTimer" type="Timer" parent="."]
+wait_time = 2.0
+
+[node name="AudioGun" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamRandomizer_vipuo")
+volume_db = 10.0
+
 [connection signal="start_move" from="Move" to="Feet" method="_on_start_move"]
 [connection signal="timeout" from="SwitchDirection" to="Move" method="_on_switch_direction_timeout"]
+[connection signal="timeout" from="ShootTimer" to="Move" method="_on_shoot_timer_timeout"]
