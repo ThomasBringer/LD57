@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg
-   width="25"
-   height="50"
+   width="50"
+   height="100"
    version="1.1"
    id="svg6"
    sodipodi:docname="grass.svg"
@@ -116,9 +116,9 @@
      inkscape:pageopacity="0"
      inkscape:pagecheckerboard="1"
      inkscape:deskcolor="#d1d1d1"
-     inkscape:zoom="9.2093587"
-     inkscape:cx="7.3837932"
-     inkscape:cy="23.237231"
+     inkscape:zoom="3.256"
+     inkscape:cx="20.884521"
+     inkscape:cy="55.282555"
      inkscape:window-width="1920"
      inkscape:window-height="1009"
      inkscape:window-x="-8"
@@ -146,4 +146,4 @@
      sodipodi:nodetypes="cccc"
      inkscape:path-effect="#path-effect2"
      inkscape:original-d="M 4.5539074,-0.44533224 C 11.730136,14.427783 12.723459,36.57633 2.0539618,48.035757 L 20,50 C 27.607603,32.403953 18.106052,10.877186 4.5539074,-0.44533224 Z"
-     transform="matrix(1.0544378,0,0,1.0544378,-2.5976263,-2.7631724)" /></svg>
+     transform="matrix(2.1088757,0,0,2.1088757,-5.195254,-5.5263475)" /></svg>

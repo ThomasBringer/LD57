@@ -7,6 +7,7 @@ const SKEW_SPEED: float = 5
 #@onready var audio_sword_swing: AudioStreamPlayer = $AudioSwordSwing
 @onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
 @onready var destroy_timer: Timer = $DestroyTimer
+@onready var particles: GPUParticles2D = $ParticlesGrass/GPUParticles2D
 
 var play_shovel_sound: bool = false
 
@@ -69,13 +70,13 @@ func damage() -> void:
 	cut()
 
 func cut() -> void:
-	#audio_sword_swing.play()
-	hide()
+	particles.restart()
+	skewer.hide()
 	collision_shape_2d.set_deferred("disabled", true)
 	destroy_timer.start()
 
 func annihilate() -> void:
-	queue_free()
+	cut()
 
 func _on_body_entered(body: Node2D) -> void:
 	pass

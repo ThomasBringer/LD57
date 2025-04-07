@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://brib4hisckue7"]
+[gd_scene load_steps=7 format=3 uid="uid://brib4hisckue7"]
 
 [ext_resource type="Script" path="res://grass/grass.gd" id="1_qigyp"]
 [ext_resource type="Shader" path="res://grass/shader/sway.gdshader" id="2_xm2ay"]
 [ext_resource type="Texture2D" uid="uid://bsttcthavgdxb" path="res://grass/grass.svg" id="3_h2s8o"]
 [ext_resource type="Shape2D" uid="uid://feoefq7c7hah" path="res://grass/blade_shape.tres" id="4_cakew"]
+[ext_resource type="PackedScene" uid="uid://bt7kgcm6jx6qf" path="res://particles/particles_grass.tscn" id="5_gbf44"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wjeji"]
 resource_local_to_scene = true
@@ -31,6 +32,8 @@ shape = ExtResource("4_cakew")
 [node name="DestroyTimer" type="Timer" parent="."]
 wait_time = 2.0
 one_shot = true
+
+[node name="ParticlesGrass" parent="." instance=ExtResource("5_gbf44")]
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
