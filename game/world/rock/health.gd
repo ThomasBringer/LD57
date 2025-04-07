@@ -22,8 +22,8 @@ func damage() -> void:
 	flash_timer.start()
 
 func die() -> void:
-	on_die.emit()
 	hide()
+	on_die.emit()
 	#if self is CharacterBody2D:
 	self.set_deferred("collision_layer", 0)
 	self.set_deferred("collision_mask", 0)

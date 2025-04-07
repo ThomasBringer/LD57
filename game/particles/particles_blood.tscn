@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://m0y6h8vgkrvg"]
 
-[ext_resource type="Texture2D" uid="uid://c7oray2ovqe1s" path="res://particles/chunk.svg" id="1_sqkg6"]
+[ext_resource type="Texture2D" uid="uid://p4bvuv4dnq13" path="res://mole/art/circle30.svg" id="1_fnkpv"]
 
 [sub_resource type="Curve" id="Curve_rqgto"]
 _data = [Vector2(0, 0), 0.0, 6.0, 0, 0, Vector2(1, 0), -2.0, 0.0, 0, 0]
@@ -9,29 +9,23 @@ point_count = 2
 [sub_resource type="CurveTexture" id="CurveTexture_8c6cw"]
 curve = SubResource("Curve_rqgto")
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ikfdc"]
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_t3omy"]
 lifetime_randomness = 1.0
 particle_flag_disable_z = true
-emission_shape = 6
-emission_ring_axis = Vector3(0, 0, 1)
-emission_ring_height = 0.0
-emission_ring_radius = 150.0
-emission_ring_inner_radius = 125.0
 direction = Vector3(0, -1, 0)
-spread = 30.0
-initial_velocity_min = 150.0
-initial_velocity_max = 500.0
-gravity = Vector3(0, 1000, 0)
+initial_velocity_min = 300.0
+initial_velocity_max = 750.0
+gravity = Vector3(0, 2000, 0)
 scale_curve = SubResource("CurveTexture_8c6cw")
 
-[node name="ParticlesDig" type="Node2D"]
-modulate = Color(0.243137, 0.152941, 0.192157, 1)
+[node name="ParticlesBlood" type="Node2D"]
+modulate = Color(1, 0, 0.266667, 1)
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
 emitting = false
-amount = 75
-process_material = SubResource("ParticleProcessMaterial_ikfdc")
-texture = ExtResource("1_sqkg6")
+amount = 200
+process_material = SubResource("ParticleProcessMaterial_t3omy")
+texture = ExtResource("1_fnkpv")
 lifetime = 0.5
 one_shot = true
 explosiveness = 0.9

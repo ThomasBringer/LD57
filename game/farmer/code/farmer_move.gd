@@ -174,11 +174,16 @@ func randomize_shooter_time() -> void:
 
 var dead: bool = false
 @onready var audio_hurt: AudioStreamPlayer = $"../AudioHurt"
+@onready var particles_blood: GPUParticles2D = $"../ParticlesBlood/GPUParticles2D"
 
 func _on_farmer_on_die() -> void:
+	particles_blood.global_position = global_position
+	particles_blood.restart()
 	dead = true
 	z.hide()
 	Levels.enemy_die()
 
 func _on_farmer_on_damage() -> void:
+	particles_blood.global_position = global_position
+	particles_blood.restart()
 	audio_hurt.play()
