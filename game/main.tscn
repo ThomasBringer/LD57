@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://0g3rdn4ty6qw"]
+[gd_scene load_steps=7 format=3 uid="uid://0g3rdn4ty6qw"]
 
 [ext_resource type="PackedScene" uid="uid://cup187fvw1yur" path="res://mole/mole.tscn" id="1_ga6f0"]
 [ext_resource type="PackedScene" uid="uid://coj6ntmsgevji" path="res://circle_frame/circle_frame.tscn" id="3_dyip0"]
 [ext_resource type="PackedScene" uid="uid://cmmb503p0e7oi" path="res://levels/levels/levels.tscn" id="3_xkglh"]
 [ext_resource type="PackedScene" uid="uid://qn5muita6ks" path="res://grass/grass_super_spawner.tscn" id="5_1epji"]
 [ext_resource type="Texture2D" uid="uid://3v122wr5mx5g" path="res://misc/heart.svg" id="5_flwj6"]
+[ext_resource type="AudioStream" uid="uid://depjbfa4eo0wf" path="res://ost/holy-moly.wav" id="6_gw05h"]
 
 [node name="Main" type="Node2D"]
 
@@ -68,3 +69,7 @@ offset_right = 650.0
 offset_bottom = 2070.0
 size_flags_horizontal = 0
 texture = ExtResource("5_flwj6")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_gw05h")
+autoplay = true
