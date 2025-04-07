@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://cup187fvw1yur"]
+[gd_scene load_steps=42 format=3 uid="uid://cup187fvw1yur"]
 
 [ext_resource type="Texture2D" uid="uid://dodsg4ccahpi7" path="res://mole/art/circle15.svg" id="1_20w2l"]
 [ext_resource type="Script" path="res://procedural_anim/link/link.gd" id="1_37vlg"]
@@ -24,6 +24,7 @@
 [ext_resource type="AudioStream" uid="uid://d3futc8gw8wgf" path="res://mole/audio/go_underground.mp3" id="20_hfb0b"]
 [ext_resource type="AudioStream" uid="uid://dxt2ovi1b3j7u" path="res://mole/audio/digging_loop.mp3" id="21_de2r1"]
 [ext_resource type="AudioStream" uid="uid://6v4nha8njiye" path="res://mole/audio/sword_swing.mp3" id="23_fxec5"]
+[ext_resource type="AudioStream" uid="uid://b1hkfv0p4b34m" path="res://mole/audio/shovel.mp3" id="25_trs8n"]
 
 [sub_resource type="Curve" id="Curve_srp8i"]
 _data = [Vector2(0, 1), 0.0, -1.0, 0, 1, Vector2(1, 0), -1.0, 0.0, 1, 0]
@@ -464,6 +465,12 @@ random_volume_offset_db = 3.0
 streams_count = 1
 stream_0/stream = ExtResource("23_fxec5")
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_p6sqx"]
+random_pitch = 1.25
+random_volume_offset_db = 3.0
+streams_count = 1
+stream_0/stream = ExtResource("25_trs8n")
+
 [node name="Mole" type="CharacterBody2D" groups=["character", "mole"]]
 collision_mask = 126
 
@@ -859,6 +866,10 @@ volume_db = -5.0
 
 [node name="AudioSwordSwing" type="AudioStreamPlayer" parent="."]
 stream = SubResource("AudioStreamRandomizer_t2qgj")
+volume_db = 8.0
+
+[node name="AudioShovel" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamRandomizer_p6sqx")
 volume_db = 8.0
 
 [connection signal="start_move" from="Move" to="Feet" method="_on_start_move"]

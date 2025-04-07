@@ -8,6 +8,7 @@ signal on_die
 @export var next_frame_for_flash: bool = false
 var sprite: Sprite2D
 
+@export var play_shovel_sound: bool = true
 var saved_colors_dict = {}
 
 func _ready() -> void:

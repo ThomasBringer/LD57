@@ -8,6 +8,8 @@ const SKEW_SPEED: float = 5
 @onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
 @onready var destroy_timer: Timer = $DestroyTimer
 
+var play_shovel_sound: bool = false
+
 func check_area_bridge() -> void:
 	var areas: Array[Area2D] = get_overlapping_areas()
 	for area in areas:
