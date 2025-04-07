@@ -875,6 +875,9 @@ volume_db = 8.0
 stream = SubResource("AudioStreamRandomizer_p6sqx")
 volume_db = 8.0
 
+[node name="InvicibilityTimer" type="Timer" parent="."]
+one_shot = true
+
 [connection signal="start_move" from="Move" to="Feet" method="_on_start_move"]
 [connection signal="area_entered" from="Attack/AttackPivot/HandShovel/ShovelArea" to="Attack/AttackPivot/HandShovel/ShovelArea" method="_on_area_entered"]
 [connection signal="body_entered" from="Attack/AttackPivot/HandShovel/ShovelArea" to="Attack/AttackPivot/HandShovel/ShovelArea" method="_on_body_entered"]

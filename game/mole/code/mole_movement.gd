@@ -168,7 +168,13 @@ func revive() -> void:
 
 var health: int = 3
 
+@onready var invicibility_timer: Timer = $"../InvicibilityTimer"
+func is_invicible() -> bool:
+	return not invicibility_timer.is_stopped()
+
 func damage() -> void:
+	if is_invicible():
+		return
 	match health:
 		3:
 			life1.hide()
@@ -180,6 +186,7 @@ func damage() -> void:
 	if health <= 0:
 		die()
 	else:
+		invicibility_timer.start()
 		recolor_dead()
 		await get_tree().create_timer(0.25).timeout
 		if is_underground:
