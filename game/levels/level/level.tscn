@@ -8,6 +8,7 @@
 script = ExtResource("1_ldo62")
 
 [node name="Base" type="Node2D" parent="."]
+y_sort_enabled = true
 
 [node name="WaterLeft" parent="Base" instance=ExtResource("2_ahgdf")]
 

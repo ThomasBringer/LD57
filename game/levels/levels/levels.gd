@@ -67,7 +67,7 @@ func game_over_() -> void:
 	level_i = 0
 	var mole = get_tree().get_first_node_in_group("mole")
 	var mole_move = mole.get_node("Move")
-	mole_move.die()
+	#mole_move.die()
 	circle_frame.play()
 	await get_tree().create_timer(3.1).timeout
 	cover.show()

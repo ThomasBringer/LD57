@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://0g3rdn4ty6qw"]
+[gd_scene load_steps=6 format=3 uid="uid://0g3rdn4ty6qw"]
 
 [ext_resource type="PackedScene" uid="uid://cup187fvw1yur" path="res://mole/mole.tscn" id="1_ga6f0"]
 [ext_resource type="PackedScene" uid="uid://coj6ntmsgevji" path="res://circle_frame/circle_frame.tscn" id="3_dyip0"]
 [ext_resource type="PackedScene" uid="uid://cmmb503p0e7oi" path="res://levels/levels/levels.tscn" id="3_xkglh"]
 [ext_resource type="PackedScene" uid="uid://qn5muita6ks" path="res://grass/grass_super_spawner.tscn" id="5_1epji"]
+[ext_resource type="Texture2D" uid="uid://3v122wr5mx5g" path="res://misc/heart.svg" id="5_flwj6"]
 
 [node name="Main" type="Node2D"]
 
@@ -29,3 +30,41 @@ color = Color(1, 0, 0.266667, 1)
 modulate = Color(1, 0, 0.266667, 1)
 
 [node name="Levels" parent="." instance=ExtResource("3_xkglh")]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+modulate = Color(1, 0, 0.266667, 1)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control"]
+layout_mode = 0
+offset_left = 100.0
+offset_top = 1920.0
+offset_right = 250.0
+offset_bottom = 2070.0
+size_flags_horizontal = 0
+texture = ExtResource("5_flwj6")
+
+[node name="TextureRect2" type="TextureRect" parent="CanvasLayer/Control"]
+layout_mode = 0
+offset_left = 300.0
+offset_top = 1920.0
+offset_right = 450.0
+offset_bottom = 2070.0
+size_flags_horizontal = 0
+texture = ExtResource("5_flwj6")
+
+[node name="TextureRect3" type="TextureRect" parent="CanvasLayer/Control"]
+layout_mode = 0
+offset_left = 500.0
+offset_top = 1920.0
+offset_right = 650.0
+offset_bottom = 2070.0
+size_flags_horizontal = 0
+texture = ExtResource("5_flwj6")

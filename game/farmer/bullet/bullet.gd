@@ -22,11 +22,11 @@ func damage() -> void:
 
 func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("mole"):
-		game_over()
+		body.get_node("Move").damage()
 	explode()
 
-func game_over() -> void:
-	Levels.game_over()
+#func game_over() -> void:
+	#Levels.game_over()
 
 static func enable_player_collision_all(val: bool) -> void:
 	for b in bullets:

@@ -145,8 +145,38 @@ func die() -> void:
 	recolor_dead()
 	dead = true
 	collision_shape.set_deferred("disabled", true)
+	Levels.game_over()
 
 func revive() -> void:
+	health = 3
+	life1.show()
+	life2.show()
+	life3.show()
 	recolor_default()
 	dead = false
 	collision_shape.set_deferred("disabled", false)
+
+@onready var life1: TextureRect = $"../../CanvasLayer/Control/TextureRect3"
+@onready var life2: TextureRect = $"../../CanvasLayer/Control/TextureRect2"
+@onready var life3: TextureRect = $"../../CanvasLayer/Control/TextureRect"
+
+var health: int = 3
+
+func damage() -> void:
+	match health:
+		3:
+			life1.hide()
+		2:
+			life2.hide()
+		1:
+			life3.hide()
+	health -= 1
+	if health <= 0:
+		die()
+	else:
+		recolor_dead()
+		await get_tree().create_timer(0.25).timeout
+		if is_underground:
+			recolor_underground()
+		else:
+			recolor_default()
