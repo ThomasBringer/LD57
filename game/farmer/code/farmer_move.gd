@@ -173,8 +173,12 @@ func randomize_shooter_time() -> void:
 	shoot_timer.wait_time = 2. + 2.5 * randf()
 
 var dead: bool = false
+@onready var audio_hurt: AudioStreamPlayer = $"../AudioHurt"
 
 func _on_farmer_on_die() -> void:
 	dead = true
 	z.hide()
 	Levels.enemy_die()
+
+func _on_farmer_on_damage() -> void:
+	audio_hurt.play()

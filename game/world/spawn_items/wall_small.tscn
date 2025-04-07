@@ -10,11 +10,11 @@ collision_layer = 2
 
 [node name="TextureRect" type="TextureRect" parent="."]
 offset_left = -1000.0
-offset_top = -225.0
+offset_top = -450.0
 offset_right = 1000.0
-offset_bottom = 225.0
 texture = ExtResource("1_sibho")
 stretch_mode = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -225)
 shape = SubResource("RectangleShape2D_bu7pw")

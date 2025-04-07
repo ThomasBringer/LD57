@@ -72,10 +72,10 @@ position = Vector2(871, 176)
 shape = SubResource("RectangleShape2D_24tp5")
 
 [node name="Tree" parent="." instance=ExtResource("7_26w52")]
-position = Vector2(-1135, -2544)
+position = Vector2(-1135, -1593)
 
 [node name="Tree2" parent="." instance=ExtResource("7_26w52")]
-position = Vector2(990, -2587)
+position = Vector2(990, -1636)
 
 [editable path="Base/WaterLeft"]
 [editable path="Base/WaterRight"]

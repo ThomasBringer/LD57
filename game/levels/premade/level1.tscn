@@ -84,10 +84,10 @@ position = Vector2(280, -4170)
 texture = ExtResource("9_va5ac")
 
 [node name="Tree" parent="." instance=ExtResource("10_1420n")]
-position = Vector2(-497, -1618)
+position = Vector2(-497, -977)
 
 [node name="Tree2" parent="." instance=ExtResource("10_1420n")]
-position = Vector2(1833, -564)
+position = Vector2(1833, 77)
 
 [editable path="Base/WaterLeft"]
 [editable path="Base/WaterRight"]

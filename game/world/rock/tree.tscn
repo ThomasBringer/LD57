@@ -12,12 +12,13 @@ radius = 450.0
 [node name="Tree" instance=ExtResource("1_n6m8w")]
 
 [node name="Sprite" parent="." index="1"]
+position = Vector2(0, -709)
 texture = ExtResource("2_pd5jq")
 
 [node name="CollisionShape2D" parent="." index="2"]
-position = Vector2(0, 325.5)
+position = Vector2(0, -383.5)
 shape = SubResource("RectangleShape2D_x6bdp")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="." index="3"]
-position = Vector2(0, -350)
+position = Vector2(0, -1059)
 shape = SubResource("CircleShape2D_adwr5")

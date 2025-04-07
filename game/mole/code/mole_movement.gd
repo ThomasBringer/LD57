@@ -94,6 +94,8 @@ func _unhandled_input(event: InputEvent) -> void:
 		try_go_aboveground()
 
 func go_underground() -> void:
+	particles_dig.global_position = global_position
+	particles_dig.restart()
 	audio_digging.play()
 	audio_go_underground.play()
 	trying_aboveground = false
@@ -115,6 +117,8 @@ func try_go_aboveground() -> void:
 		go_aboveground()
 
 func go_aboveground() -> void:
+	particles_dig.global_position = global_position
+	particles_dig.restart()
 	audio_digging.stop()
 	audio_go_underground.play()
 	area_destroy_grass_collsion.set_deferred("disabled", true)
@@ -159,6 +163,8 @@ func revive() -> void:
 @onready var life1: TextureRect = $"../../CanvasLayer/Control/TextureRect3"
 @onready var life2: TextureRect = $"../../CanvasLayer/Control/TextureRect2"
 @onready var life3: TextureRect = $"../../CanvasLayer/Control/TextureRect"
+
+@onready var particles_dig: GPUParticles2D = $"../ParticlesDig/GPUParticles2D"
 
 var health: int = 3
 

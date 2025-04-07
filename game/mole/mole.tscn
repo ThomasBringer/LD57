@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://cup187fvw1yur"]
+[gd_scene load_steps=43 format=3 uid="uid://cup187fvw1yur"]
 
 [ext_resource type="Texture2D" uid="uid://dodsg4ccahpi7" path="res://mole/art/circle15.svg" id="1_20w2l"]
 [ext_resource type="Script" path="res://procedural_anim/link/link.gd" id="1_37vlg"]
@@ -23,6 +23,7 @@
 [ext_resource type="AudioStream" uid="uid://ucyk05pojhgg" path="res://mole/audio/steps/step.tres" id="19_oikan"]
 [ext_resource type="AudioStream" uid="uid://d3futc8gw8wgf" path="res://mole/audio/go_underground.mp3" id="20_hfb0b"]
 [ext_resource type="AudioStream" uid="uid://dxt2ovi1b3j7u" path="res://mole/audio/digging_loop.mp3" id="21_de2r1"]
+[ext_resource type="PackedScene" uid="uid://btqflm870xy2h" path="res://particles/particles_dig.tscn" id="21_l2h3i"]
 [ext_resource type="AudioStream" uid="uid://6v4nha8njiye" path="res://mole/audio/sword_swing.mp3" id="23_fxec5"]
 [ext_resource type="AudioStream" uid="uid://b1hkfv0p4b34m" path="res://mole/audio/shovel.mp3" id="25_trs8n"]
 
@@ -850,6 +851,8 @@ curve = SubResource("Curve2D_d6kej")
 script = ExtResource("16_bt32w")
 line = NodePath("../SlashLine")
 
+[node name="ParticlesDig" parent="." instance=ExtResource("21_l2h3i")]
+
 [node name="AudioSteps" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("19_oikan")
 
@@ -875,3 +878,5 @@ volume_db = 8.0
 [connection signal="start_move" from="Move" to="Feet" method="_on_start_move"]
 [connection signal="area_entered" from="Attack/AttackPivot/HandShovel/ShovelArea" to="Attack/AttackPivot/HandShovel/ShovelArea" method="_on_area_entered"]
 [connection signal="body_entered" from="Attack/AttackPivot/HandShovel/ShovelArea" to="Attack/AttackPivot/HandShovel/ShovelArea" method="_on_body_entered"]
+
+[editable path="ParticlesDig"]

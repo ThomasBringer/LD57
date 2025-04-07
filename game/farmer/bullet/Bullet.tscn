@@ -1,11 +1,18 @@
-[gd_scene load_steps=4 format=3 uid="uid://d26x2hfpqdn6o"]
+[gd_scene load_steps=6 format=3 uid="uid://d26x2hfpqdn6o"]
 
 [ext_resource type="Texture2D" uid="uid://bvoyrlryyjbgw" path="res://farmer/bullet/bullet.svg" id="1_blj3d"]
 [ext_resource type="Script" path="res://farmer/bullet/bullet.gd" id="1_or1sm"]
+[ext_resource type="AudioStream" uid="uid://dnhg187f7hfj7" path="res://farmer/bullet/small_explosion.mp3" id="3_nmgdg"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xkkf6"]
 radius = 30.0
 height = 140.0
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_gesb6"]
+random_pitch = 1.25
+random_volume_offset_db = 3.0
+streams_count = 1
+stream_0/stream = ExtResource("3_nmgdg")
 
 [node name="Bullet" type="Area2D"]
 z_index = 1000
@@ -25,6 +32,10 @@ shape = SubResource("CapsuleShape2D_xkkf6")
 wait_time = 15.0
 one_shot = true
 autostart = true
+
+[node name="AudioExplosion" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamRandomizer_gesb6")
+volume_db = 5.0
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="timeout" from="Lifetime" to="." method="_on_lifetime_timeout"]
